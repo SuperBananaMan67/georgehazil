@@ -316,6 +316,8 @@ h2 {
 .more span {
   display: block;
   pointer-events: none;
+  font-size: 6px;
+  line-height: 1;
 }
 
 .more:hover,
