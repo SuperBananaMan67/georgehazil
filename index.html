@@ -148,6 +148,15 @@
       (() => {
         function updateReleaseTimestamp() {
           const now = new Date();
+          const rounded = new Date(now);
+
+          // Round down to the previous 30-minute interval.
+          rounded.setMinutes(
+            Math.floor(now.getMinutes() / 30) * 30,
+            0,
+            0
+          );
+
           const date = document.querySelector('#today');
           const time = document.querySelector('#rounded-time');
 
@@ -161,7 +170,7 @@
             hour: '2-digit',
             minute: '2-digit',
             hourCycle: 'h23'
-          }).format(now);
+          }).format(rounded);
         }
 
         updateReleaseTimestamp();
