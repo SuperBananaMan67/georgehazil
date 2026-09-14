@@ -238,8 +238,10 @@ h2 {
 }
 
 .release-row {
+  display: flex;
   direction: ltr;
-  grid-template-columns: 0.55fr 1.2fr 1.05fr 1.6fr;
+  align-items: center;
+  justify-content: space-around;
   min-height: 164px;
   padding: 12px 22px;
   background: #f4f4f4;
@@ -252,6 +254,22 @@ h2 {
 .release-row time {
   direction: ltr;
   white-space: nowrap;
+}
+
+.release-row .more {
+  order: 1;
+}
+
+.release-row .status {
+  order: 2;
+}
+
+.release-row #rounded-time {
+  order: 3;
+}
+
+.release-row #today {
+  order: 4;
 }
 
 .status {
