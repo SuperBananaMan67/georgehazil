@@ -12,11 +12,17 @@
   </head>
   <body>
     <header class="topbar">
-      <button class="menu-button" aria-label="פתיחת תפריט"><span></span><span></span><span></span></button>
+      <button class="menu-button" aria-label="פתיחת תפריט">
+        <span></span><span></span><span></span>
+      </button>
       <p>משו״ב - שחרורית</p>
       <div class="top-actions" aria-label="פעולות">
         <button aria-label="עזרה" class="icon-button">?</button>
-        <button aria-label="התראות" class="bell">♟</button>
+        <button aria-label="התראות" class="bell">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 16v-5a6 6 0 0 0-4.5-5.8V4a1.5 1.5 0 0 0-3 0v1.2A6 6 0 0 0 6 11v5l-2 2h16l-2-2Zm-6 6a2.2 2.2 0 0 0 2.1-2.1H9.9A2.2 2.2 0 0 0 12 22Z" />
+          </svg>
+        </button>
         <span class="notification" aria-label="25 התראות">25</span>
         <button aria-label="חזרה" class="back">‹</button>
       </div>
@@ -24,14 +30,36 @@
 
     <main>
       <h1>שחרורית</h1>
+
       <section class="panel" aria-labelledby="sent-title">
         <div class="controls">
-          <label class="toggle-row"><span class="switch off"><input type="checkbox" aria-label="הצגת בקשות שפג תוקפן" /><i></i></span>הצגת בקשות שפג תוקפן</label>
-          <label class="toggle-row"><span class="switch"><input type="checkbox" checked aria-label="סידור בקשות מהחדש לישן" /><i></i></span>סידור בקשות מהחדש לישן</label>
+          <label class="toggle-row">
+            <span class="switch off">
+              <input type="checkbox" aria-label="הצגת בקשות שפג תוקפן" />
+              <i></i>
+            </span>
+            הצגת בקשות שפג תוקפן
+          </label>
+
+          <label class="toggle-row">
+            <span class="switch">
+              <input type="checkbox" checked aria-label="סידור בקשות מהחדש לישן" />
+              <i></i>
+            </span>
+            סידור בקשות מהחדש לישן
+          </label>
         </div>
+
         <article class="release-card">
           <h2 id="sent-title">בקשות שחרור שנשלחו</h2>
-          <div class="table-head"><span>תאריך<br />שחרור</span><span>שעות</span><span>סטטוס</span><span aria-hidden="true"></span></div>
+
+          <div class="table-head">
+            <span>תאריך<br />שחרור</span>
+            <span>שעות</span>
+            <span>סטטוס</span>
+            <span></span>
+          </div>
+
           <div class="release-row">
             <button class="chevron" aria-label="הרחבת בקשה">⌄</button>
             <time id="today">--/--/--</time>
@@ -42,6 +70,7 @@
         </article>
       </section>
     </main>
+
     <script src="script.js"></script>
   </body>
 </html>
