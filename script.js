@@ -2,7 +2,7 @@ function updateReleaseTimestamp() {
   const now = new Date();
   const rounded = new Date(now);
 
-  // Round to the nearest half hour.
+  // Rounds the time to the nearest 30 minutes.
   rounded.setMinutes(Math.round(now.getMinutes() / 30) * 30, 0, 0);
 
   document.querySelector("#today").textContent =
