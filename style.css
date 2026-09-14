@@ -76,11 +76,15 @@ button {
   place-items: center;
   width: 53px;
   height: 53px;
-  border: 4px solid white;
-  border-radius: 50%;
-  font-size: 38px;
-  font-weight: 700;
-  line-height: 1;
+  padding: 0;
+  border: 0;
+}
+
+.icon-button svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
 }
 
 .bell {
@@ -340,8 +344,6 @@ h2 {
   .icon-button {
     width: 35px;
     height: 35px;
-    border-width: 3px;
-    font-size: 25px;
   }
 
   .bell {
