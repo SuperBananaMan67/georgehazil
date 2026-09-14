@@ -154,8 +154,9 @@ h1 {
   height: 44px;
   flex: 0 0 auto;
   border-radius: 99px;
-  background: #7589dc;
+  background: #ddd;
   direction: ltr;
+  transition: background-color 160ms ease;
 }
 
 .switch input {
@@ -176,8 +177,9 @@ h1 {
   top: -4px;
   right: -1px;
   border-radius: 50%;
-  background: #4358bc;
+  background: #878787;
   box-shadow: 0 2px 4px #0004;
+  transition: right 160ms ease, left 160ms ease, background-color 160ms ease;
 }
 
 .switch-icon {
