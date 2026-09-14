@@ -304,16 +304,18 @@ h2 {
   place-items: center;
   width: 48px;
   height: 48px;
-  padding: 12px;
+  padding: 0;
   border-radius: 50%;
   color: #777;
+  font-family: Arial, sans-serif;
+  font-size: 38px;
+  line-height: 1;
+  flex-shrink: 0;
 }
 
-.more svg {
+.more span {
   display: block;
-  width: 24px;
-  height: 24px;
-  fill: currentColor;
+  pointer-events: none;
 }
 
 .more:hover,
