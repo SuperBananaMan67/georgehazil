@@ -239,6 +239,7 @@ h2 {
 
 .release-row {
   display: flex;
+  flex-direction: row;
   direction: ltr;
   align-items: center;
   justify-content: space-around;
