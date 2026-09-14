@@ -238,7 +238,8 @@ h2 {
 }
 
 .release-row {
-  direction: rtl;
+  direction: ltr;
+  grid-template-columns: 0.55fr 1.2fr 1.05fr 1.6fr;
   min-height: 164px;
   padding: 12px 22px;
   background: #f4f4f4;
@@ -258,11 +259,6 @@ h2 {
   border-radius: 38px;
   background: #dcefd4;
   color: #71816b;
-}
-
-.chevron {
-  font-size: 57px;
-  color: #777;
 }
 
 .more {
@@ -352,7 +348,6 @@ h2 {
     padding: 8px;
   }
 
-  .chevron,
   .more {
     font-size: 38px;
   }
