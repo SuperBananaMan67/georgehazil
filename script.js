@@ -1,24 +1,53 @@
-function updateReleaseTimestamp() {
-  const now = new Date();
-  const rounded = new Date(now);
+const moreButton = document.querySelector('.more');
+const releaseMenu = document.querySelector('#release-menu');
+const menuItem = releaseMenu.querySelector('[role="menuitem"]');
 
-  // Rounds the time to the nearest 30 minutes.
-  rounded.setMinutes(Math.round(now.getMinutes() / 30) * 30, 0, 0);
-
-  document.querySelector("#today").textContent =
-    new Intl.DateTimeFormat("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "2-digit"
-    }).format(now);
-
-  document.querySelector("#rounded-time").textContent =
-    new Intl.DateTimeFormat("en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false
-    }).format(rounded);
+function closeMenu(restoreFocus = false) {
+  releaseMenu.hidden = true;
+  moreButton.setAttribute('aria-expanded', 'false');
+  if (restoreFocus) moreButton.focus();
 }
 
-updateReleaseTimestamp();
-setInterval(updateReleaseTimestamp, 30000);
+function openMenu() {
+  releaseMenu.hidden = false;
+  moreButton.setAttribute('aria-expanded', 'true');
+  menuItem.focus();
+}
+
+moreButton.addEventListener('click', () => {
+  if (releaseMenu.hidden) openMenu();
+  else closeMenu(true);
+});
+
+moreButton.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+    event.preventDefault();
+    openMenu();
+  }
+});
+
+document.addEventListener('click', (event) => {
+  if (!event.target.closest('.release-actions')) closeMenu();
+});
+
+document.addEventListener('keydown', (event) => {
+  if (releaseMenu.hidden) return;
+
+  if (event.key === 'Escape') {
+    event.preventDefault();
+    closeMenu(true);
+  }
+});
+
+releaseMenu.addEventListener('keydown', (event) => {
+  if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
+    event.preventDefault();
+    menuItem.focus();
+  }
+});
+
+document.addEventListener('focusin', (event) => {
+  if (!event.target.closest('.release-actions')) closeMenu();
+});
+
+menuItem.addEventListener('click', () => closeMenu(true));
