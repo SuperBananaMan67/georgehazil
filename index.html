@@ -1,1 +1,47 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>משו״ב - שחרורית</title>
+    <meta name="description" content="דף שחרורית מותאם ל-GitHub Pages" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <button class="menu-button" aria-label="פתיחת תפריט"><span></span><span></span><span></span></button>
+      <p>משו״ב - שחרורית</p>
+      <div class="top-actions" aria-label="פעולות">
+        <button aria-label="עזרה" class="icon-button">?</button>
+        <button aria-label="התראות" class="bell">♟</button>
+        <span class="notification" aria-label="25 התראות">25</span>
+        <button aria-label="חזרה" class="back">‹</button>
+      </div>
+    </header>
 
+    <main>
+      <h1>שחרורית</h1>
+      <section class="panel" aria-labelledby="sent-title">
+        <div class="controls">
+          <label class="toggle-row"><span class="switch off"><input type="checkbox" aria-label="הצגת בקשות שפג תוקפן" /><i></i></span>הצגת בקשות שפג תוקפן</label>
+          <label class="toggle-row"><span class="switch"><input type="checkbox" checked aria-label="סידור בקשות מהחדש לישן" /><i></i></span>סידור בקשות מהחדש לישן</label>
+        </div>
+        <article class="release-card">
+          <h2 id="sent-title">בקשות שחרור שנשלחו</h2>
+          <div class="table-head"><span>תאריך<br />שחרור</span><span>שעות</span><span>סטטוס</span><span aria-hidden="true"></span></div>
+          <div class="release-row">
+            <button class="chevron" aria-label="הרחבת בקשה">⌄</button>
+            <time id="today">--/--/--</time>
+            <time id="rounded-time">--:--</time>
+            <span class="status">התקבל</span>
+            <button class="more" aria-label="פעולות נוספות">⋮</button>
+          </div>
+        </article>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
