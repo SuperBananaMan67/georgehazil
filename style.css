@@ -1,1 +1,331 @@
+:root {
+  color-scheme: light;
+  font-family: Heebo, Arial, sans-serif;
+}
 
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #fff;
+  color: #0a0a0a;
+}
+
+.topbar {
+  height: 148px;
+  padding: 0 clamp(28px, 5vw, 74px);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: #0d6934;
+  color: white;
+  box-shadow: 0 2px 4px #0003;
+}
+
+.topbar p {
+  margin: 0;
+  font-size: clamp(31px, 5vw, 51px);
+  font-weight: 400;
+}
+
+button {
+  font: inherit;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+}
+
+.menu-button {
+  display: grid;
+  gap: 7px;
+  width: 50px;
+  padding: 8px 0;
+}
+
+.menu-button span {
+  display: block;
+  height: 6px;
+  border-radius: 99px;
+  background: white;
+}
+
+.top-actions {
+  direction: ltr;
+  display: flex;
+  align-items: center;
+  gap: 27px;
+  font-size: 46px;
+}
+
+.icon-button {
+  display: grid;
+  place-items: center;
+  width: 53px;
+  height: 53px;
+  border: 4px solid white;
+  border-radius: 50%;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.bell {
+  width: 47px;
+  height: 52px;
+  padding: 0;
+}
+
+.bell svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.notification {
+  margin-left: -34px;
+  margin-top: -63px;
+  display: grid;
+  place-items: center;
+  width: 63px;
+  height: 63px;
+  border-radius: 12px;
+  background: #f20c10;
+  font-size: 40px;
+}
+
+.back {
+  font-size: 69px;
+  line-height: 0.7;
+}
+
+main {
+  padding: 66px clamp(26px, 5vw, 74px);
+  max-width: 1130px;
+  margin: auto;
+}
+
+h1 {
+  margin: 0 0 30px;
+  text-align: right;
+  font-size: clamp(56px, 9vw, 77px);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.panel {
+  min-height: 735px;
+  padding: 26px;
+  border: 1px solid #dedede;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px #0002;
+}
+
+.controls {
+  padding: 29px 27px 17px;
+  border: 2px solid #ddd;
+  border-radius: 11px;
+  font-size: clamp(24px, 4vw, 37px);
+  line-height: 1.9;
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+}
+
+.switch {
+  position: relative;
+  width: 92px;
+  height: 44px;
+  flex: 0 0 auto;
+  border-radius: 99px;
+  background: #7589dc;
+  direction: ltr;
+}
+
+.switch input {
+  appearance: none;
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.switch i {
+  display: block;
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  top: -4px;
+  right: -1px;
+  border-radius: 50%;
+  background: #4358bc;
+  box-shadow: 0 2px 4px #0004;
+}
+
+.switch.off {
+  background: #ddd;
+}
+
+.switch.off i {
+  right: auto;
+  left: 0;
+  background: #878787;
+}
+
+.release-card {
+  margin: 0 38px;
+  padding: 20px 0 0;
+  background: #f8f8f8;
+  box-shadow: 0 7px 13px #0004;
+}
+
+h2 {
+  margin: 0 0 36px;
+  text-align: center;
+  font-size: clamp(36px, 6vw, 59px);
+  font-weight: 600;
+}
+
+.table-head,
+.release-row {
+  display: grid;
+  grid-template-columns: 1.6fr 1.05fr 1.2fr 0.55fr;
+  align-items: center;
+  text-align: center;
+}
+
+.table-head {
+  padding: 0 25px 17px;
+  font-size: clamp(23px, 3.7vw, 38px);
+  line-height: 1.25;
+  color: #333;
+}
+
+.release-row {
+  direction: rtl;
+  min-height: 164px;
+  padding: 12px 22px;
+  background: #f4f4f4;
+  border-top: 1px solid #eee;
+  box-shadow: 0 -6px 14px #0000000c;
+  font-size: clamp(25px, 3.8vw, 39px);
+  color: #777;
+}
+
+.release-row time {
+  direction: ltr;
+  white-space: nowrap;
+}
+
+.status {
+  padding: 15px 17px;
+  border-radius: 38px;
+  background: #dcefd4;
+  color: #71816b;
+}
+
+.chevron {
+  font-size: 57px;
+  color: #777;
+}
+
+.more {
+  font-size: 55px;
+  color: #777;
+  line-height: 0;
+}
+
+@media (max-width: 600px) {
+  .topbar {
+    height: 92px;
+    padding: 0 20px;
+  }
+
+  .top-actions {
+    gap: 15px;
+    font-size: 28px;
+  }
+
+  .menu-button {
+    width: 35px;
+    gap: 5px;
+  }
+
+  .menu-button span {
+    height: 4px;
+  }
+
+  .topbar p {
+    font-size: 25px;
+  }
+
+  .icon-button {
+    width: 35px;
+    height: 35px;
+    border-width: 3px;
+    font-size: 25px;
+  }
+
+  .bell {
+    width: 32px;
+    height: 36px;
+  }
+
+  .notification {
+    width: 39px;
+    height: 39px;
+    margin-left: -26px;
+    margin-top: -43px;
+    font-size: 24px;
+  }
+
+  .back {
+    font-size: 46px;
+  }
+
+  main {
+    padding: 38px 16px;
+  }
+
+  .panel {
+    min-height: 0;
+    padding: 14px;
+  }
+
+  .controls {
+    padding: 17px 12px;
+  }
+
+  .switch {
+    width: 64px;
+    height: 31px;
+  }
+
+  .switch i {
+    width: 37px;
+    height: 37px;
+    top: -3px;
+  }
+
+  .release-card {
+    margin: 0 8px;
+  }
+
+  .release-row {
+    min-height: 105px;
+    padding: 8px;
+  }
+
+  .chevron,
+  .more {
+    font-size: 38px;
+  }
+}
