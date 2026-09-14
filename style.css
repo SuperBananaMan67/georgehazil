@@ -302,8 +302,8 @@ h2 {
 .more {
   display: grid;
   place-items: center;
-  width: 76px;
-  height: 76px;
+  width: 80px;
+  height: 88px;
   padding: 0;
   border-radius: 50%;
   color: #777;
@@ -316,8 +316,13 @@ h2 {
 .more span {
   display: block;
   pointer-events: none;
-  font-size: 72px;
-  line-height: 1;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 -24px 0 currentColor, 0 24px 0 currentColor;
+  font-size: 0;
+  line-height: 0;
 }
 
 .more:hover,
