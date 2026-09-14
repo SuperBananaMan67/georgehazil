@@ -195,8 +195,8 @@ h1 {
 }
 
 .switch.off i {
-  right: auto;
-  left: 0;
+  right: -1px;
+  left: auto;
   background: #878787;
 }
 
@@ -205,8 +205,8 @@ h1 {
 }
 
 .switch:has(input:not(:checked)) i {
-  right: auto;
-  left: 0;
+  right: -1px;
+  left: auto;
   background: #878787;
 }
 
@@ -215,8 +215,8 @@ h1 {
 }
 
 .switch:has(input:checked) i {
-  right: -1px;
-  left: auto;
+  right: auto;
+  left: 0;
   background: #4358bc;
 }
 
