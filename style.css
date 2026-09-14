@@ -64,6 +64,7 @@ button {
 
 .top-actions {
   direction: ltr;
+  flex-direction: row;
   display: flex;
   align-items: center;
   gap: 27px;
