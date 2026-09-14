@@ -12,7 +12,10 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="style.css?v=smaller-dots-20260915-2"
+    />
   </head>
 
   <body>
@@ -150,7 +153,6 @@
           const now = new Date();
           const rounded = new Date(now);
 
-          // Round down to the previous 30-minute interval.
           rounded.setMinutes(
             Math.floor(now.getMinutes() / 30) * 30,
             0,
@@ -180,7 +182,6 @@
         const menu = document.querySelector('#release-menu');
         const item = menu.querySelector('[role="menuitem"]');
 
-        // Prevent the popup from being clipped by the card.
         document.body.appendChild(menu);
 
         function positionMenu() {
