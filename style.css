@@ -327,38 +327,37 @@ h2 {
   position: relative;
 }
 
-.release-menu {
-  position: fixed;
-  z-index: 1000;
-  min-width: 260px;
-  padding: 0;
-  border-radius: 4px;
-  background: white;
-  box-shadow: 0 5px 5px -3px #0003, 0 8px 10px 1px #00000024,
-    0 3px 14px 2px #0000001f;
-}
 
 .release-menu[hidden] {
   display: none;
 }
 
+.release-menu {
+  position: fixed;
+  z-index: 1000;
+  min-width: 360px;      
+  border-radius: 8px;    
+  background: white;
+  box-shadow: 0 5px 5px -3px #0003, 0 8px 10px 1px #00000024,
+    0 3px 14px 2px #0000001f;
+}
+
 .release-menu-item {
   display: flex;
   align-items: center;
-  gap: 16px;
-  width: 100%;
-  min-height: 80px;
-  padding: 0 18px;
+  gap: 28px;            
+  min-height: 110px;      
+  padding: 0 30px;      
   color: #333;
-  font-size: 26px;
+  font-size: 32px;       
   line-height: 1.5;
   text-align: right;
   white-space: nowrap;
 }
 
 .release-menu-item svg {
-  width: 34px;
-  height: 34px;
+  width: 45px;            
+  height: 45px;           
   flex: 0 0 auto;
   fill: #222;
 }
