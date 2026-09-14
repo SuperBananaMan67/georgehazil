@@ -55,7 +55,10 @@
         <div class="controls">
           <label class="toggle-row">
             <span class="switch off">
-              <input type="checkbox" aria-label="הצגת בקשות שפג תוקפן" />
+              <input
+                type="checkbox"
+                aria-label="הצגת בקשות שפג תוקפן"
+              />
               <i aria-hidden="true">
                 <svg class="switch-icon switch-icon--off" viewBox="0 0 24 24">
                   <path d="M20 13H4v-2h16v2z" />
@@ -108,9 +111,7 @@
                 aria-expanded="false"
                 aria-controls="release-menu"
               >
-                <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                  <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-                </svg>
+                <span aria-hidden="true">⋮</span>
               </button>
 
               <div
@@ -145,11 +146,32 @@
 
     <script>
       (() => {
+        function updateReleaseTimestamp() {
+          const now = new Date();
+          const date = document.querySelector('#today');
+          const time = document.querySelector('#rounded-time');
+
+          date.textContent = new Intl.DateTimeFormat('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            year: '2-digit'
+          }).format(now);
+
+          time.textContent = new Intl.DateTimeFormat('en-GB', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hourCycle: 'h23'
+          }).format(now);
+        }
+
+        updateReleaseTimestamp();
+        setInterval(updateReleaseTimestamp, 1000);
+
         const trigger = document.querySelector('.more');
         const menu = document.querySelector('#release-menu');
         const item = menu.querySelector('[role="menuitem"]');
 
-        // Keep the popup outside containers that could clip it.
+        // Prevent the popup from being clipped by the card.
         document.body.appendChild(menu);
 
         function positionMenu() {
