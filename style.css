@@ -302,13 +302,13 @@ h2 {
 .more {
   display: grid;
   place-items: center;
-  width: 10px;
-  height: 10px;
+  width: 30px;
+  height: 30px;
   padding: 0;
   border-radius: 50%;
   color: #777;
   font-family: Arial, sans-serif;
-  font-size: 10px;
+  font-size: 30px;
   line-height: 1;
   flex-shrink: 0;
 }
