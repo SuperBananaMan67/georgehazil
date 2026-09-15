@@ -18,6 +18,10 @@
       box-sizing: border-box;
     }
 
+    [hidden] {
+      display: none !important;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
@@ -65,6 +69,7 @@
       gap: 7px;
       width: 50px;
       padding: 8px 0;
+      flex-shrink: 0;
     }
 
     .menu-button span {
@@ -81,6 +86,7 @@
       align-items: center;
       gap: 27px;
       font-size: 46px;
+      flex-shrink: 0;
     }
 
     .icon-button {
@@ -100,6 +106,7 @@
     }
 
     .bell {
+      position: relative;
       width: 47px;
       height: 52px;
       padding: 0;
@@ -109,6 +116,21 @@
       width: 100%;
       height: 100%;
       fill: currentColor;
+    }
+
+    .notification-count {
+      position: absolute;
+      top: -24px;
+      left: -35px;
+      min-width: 54px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      background: red;
+      color: white;
+      font-size: 36px;
+      line-height: 1.2;
+      text-align: center;
+      pointer-events: none;
     }
 
     .back {
@@ -197,20 +219,12 @@
       display: none;
     }
 
-    .switch.off {
-      background: #ddd;
-    }
-
-    .switch.off i {
-      right: -1px;
-      left: auto;
-      background: #878787;
-    }
-
+    .switch.off,
     .switch:has(input:not(:checked)) {
       background: #ddd;
     }
 
+    .switch.off i,
     .switch:has(input:not(:checked)) i {
       right: -1px;
       left: auto;
@@ -284,21 +298,10 @@
       white-space: nowrap;
     }
 
-    .release-row .release-actions {
-      order: 1;
-    }
-
-    .release-row .status {
-      order: 2;
-    }
-
-    .release-row #rounded-time {
-      order: 3;
-    }
-
-    .release-row #today {
-      order: 4;
-    }
+    .release-row .release-actions { order: 1; }
+    .release-row .status { order: 2; }
+    .release-row #rounded-time { order: 3; }
+    .release-row #today { order: 4; }
 
     .release-expand {
       order: 5;
@@ -347,10 +350,6 @@
       background: #0000000a;
     }
 
-    .release-details[hidden] {
-      display: none;
-    }
-
     .release-details {
       padding: 0 28px 20px;
       background: #f4f4f4;
@@ -361,13 +360,8 @@
       overflow-wrap: anywhere;
     }
 
-    .release-details p {
-      margin: 0;
-    }
-
-    .release-details strong {
-      font-weight: 700;
-    }
+    .release-details p { margin: 0; }
+    .release-details strong { font-weight: 700; }
 
     .release-card:has(.release-expand[aria-expanded="true"]) .release-row {
       padding-bottom: 0;
@@ -415,13 +409,7 @@
       background: #0000000a;
     }
 
-    .release-actions {
-      position: relative;
-    }
-
-    .release-menu[hidden] {
-      display: none;
-    }
+    .release-actions { position: relative; }
 
     .release-menu {
       position: fixed;
@@ -458,7 +446,8 @@
       background: #f5f5f5;
     }
 
-    body.approval-open {
+    body.approval-open,
+    body.sidebar-open {
       overflow: hidden;
     }
 
@@ -477,9 +466,7 @@
       overflow: auto;
     }
 
-    .approval-dialog::backdrop {
-      background: #0005;
-    }
+    .approval-dialog::backdrop { background: #0005; }
 
     .approval-header {
       display: flex;
@@ -515,9 +502,7 @@
       fill: currentColor;
     }
 
-    .approval-close:hover {
-      background: #ffffff1a;
-    }
+    .approval-close:hover { background: #ffffff1a; }
 
     .approval-close:focus-visible {
       outline: 2px solid white;
@@ -535,9 +520,7 @@
       line-height: 1.5;
     }
 
-    .approval-content p {
-      margin: 0;
-    }
+    .approval-content p { margin: 0; }
 
     .approval-accepted-icon {
       display: block;
@@ -554,7 +537,6 @@
       background: #dff0d5;
     }
 
-    /* Keep the portrait frame centered inside the green card. */
     .approval-portrait {
       display: flex;
       align-items: center;
@@ -570,7 +552,6 @@
       overflow: hidden;
     }
 
-    /* Fit the SVG to the frame instead of overflowing at 200px. */
     .approval-portrait > svg {
       display: block;
       position: static;
@@ -616,9 +597,7 @@
       fill: currentColor;
     }
 
-    .approval-refresh:hover {
-      background: #0a542a;
-    }
+    .approval-refresh:hover { background: #0a542a; }
 
     .approval-refresh:focus-visible {
       outline: 3px solid #49a30b;
@@ -637,10 +616,6 @@
       border: 0;
     }
 
-    body.sidebar-open {
-      overflow: hidden;
-    }
-
     .main-sidebar {
       position: fixed;
       inset: 0 0 0 auto;
@@ -657,9 +632,7 @@
       box-shadow: -5px 0 20px #0003;
     }
 
-    .main-sidebar::backdrop {
-      background: #0006;
-    }
+    .main-sidebar::backdrop { background: #0006; }
 
     .sidebar-header {
       position: relative;
@@ -706,9 +679,7 @@
       border-radius: 4px;
     }
 
-    .sidebar-student > div {
-      flex: 1;
-    }
+    .sidebar-student > div { flex: 1; }
 
     .sidebar-student p {
       margin: 6px 0;
@@ -729,13 +700,7 @@
       font-size: 16px;
     }
 
-    .sidebar-item[aria-disabled="true"] {
-      cursor: default;
-    }
-
-    .sidebar-item:hover {
-      background: #f3f3f3;
-    }
+    .sidebar-item:hover { background: #f3f3f3; }
 
     .sidebar-item[aria-current="page"] {
       background: #e5f1e8;
@@ -763,6 +728,10 @@
       font-size: 14px;
     }
 
+    #sidebar-navigation details .sidebar-item[aria-current="page"] {
+      background: #e5f1e8;
+    }
+
     .sidebar-footer {
       padding: 20px 12px;
       border-top: 1px solid #ddd;
@@ -771,8 +740,89 @@
       color: #666;
     }
 
-    .sidebar-footer p {
-      margin: 6px 0;
+    .sidebar-footer p { margin: 6px 0; }
+
+    /* Error screen from the reference image. */
+    body.error-mode {
+      min-height: 100vh;
+      min-height: 100dvh;
+      background: #fafafa;
+    }
+
+    body.error-mode .topbar {
+      height: clamp(92px, 17vw, 170px);
+      gap: clamp(12px, 3vw, 30px);
+    }
+
+    body.error-mode .topbar p {
+      flex: 1;
+      min-width: 0;
+      text-align: center;
+      font-size: clamp(18px, 4.8vw, 51px);
+      line-height: 1.25;
+    }
+
+    .error-page {
+      max-width: none;
+      margin: 0;
+      padding: 0 0 140px;
+    }
+
+    .error-card {
+      display: grid;
+      place-items: center;
+      min-height: clamp(112px, 19vw, 190px);
+      padding: 24px;
+      background: white;
+      border-radius: 0 0 9px 9px;
+      box-shadow: 0 2px 3px #0006;
+    }
+
+    .error-card h1 {
+      margin: 0;
+      color: #292929;
+      text-align: center;
+      font-size: clamp(26px, 4.3vw, 44px);
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    .error-snackbar {
+      position: fixed;
+      right: 0;
+      bottom: max(20px, env(safe-area-inset-bottom));
+      left: 0;
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 110px;
+      padding: 20px clamp(20px, 4vw, 48px);
+      border-radius: 9px;
+      background: #424242;
+      color: white;
+      box-shadow: 0 4px 15px #0004;
+      direction: rtl;
+    }
+
+    .error-snackbar p {
+      margin: 0;
+      font-size: clamp(19px, 4vw, 42px);
+      line-height: 1.4;
+    }
+
+    .error-snackbar button {
+      flex-shrink: 0;
+      min-height: 44px;
+      padding: 8px 4px;
+      color: #9298ef;
+      font-size: clamp(19px, 4vw, 40px);
+    }
+
+    .error-snackbar button:focus-visible {
+      outline: 2px solid #9298ef;
+      outline-offset: 4px;
     }
 
     @media (max-width: 600px) {
@@ -791,13 +841,8 @@
         gap: 5px;
       }
 
-      .menu-button span {
-        height: 4px;
-      }
-
-      .topbar p {
-        font-size: 25px;
-      }
+      .menu-button span { height: 4px; }
+      .topbar p { font-size: 25px; }
 
       .icon-button {
         width: 35px;
@@ -809,22 +854,24 @@
         height: 36px;
       }
 
-      .back {
-        font-size: 46px;
+      .notification-count {
+        top: -15px;
+        left: -17px;
+        min-width: 28px;
+        padding: 2px 4px;
+        border-radius: 5px;
+        font-size: 20px;
       }
 
-      main {
-        padding: 38px 16px;
-      }
+      .back { font-size: 46px; }
+      main { padding: 38px 16px; }
 
       .panel {
         min-height: 0;
         padding: 14px;
       }
 
-      .controls {
-        padding: 17px 12px;
-      }
+      .controls { padding: 17px 12px; }
 
       .switch {
         width: 64px;
@@ -842,9 +889,7 @@
         height: 22px;
       }
 
-      .release-card {
-        margin: 0 8px;
-      }
+      .release-card { margin: 0 8px; }
 
       .release-row {
         min-height: 105px;
@@ -875,13 +920,17 @@
         font-size: clamp(18px, 4vw, 26px);
       }
 
-      .release-row .more {
-        width: 40px;
-      }
+      .release-row .more { width: 40px; }
 
       .status {
         min-height: 80px;
         padding: 12px 10px;
+      }
+
+      .error-snackbar {
+        min-height: 70px;
+        gap: 12px;
+        padding: 14px 18px;
       }
     }
   </style>
@@ -900,18 +949,34 @@
       <span></span><span></span><span></span>
     </button>
 
-    <p>משו״ב - שחרורית</p>
+    <p id="app-title">משו״ב - שחרורית</p>
 
     <div class="top-actions" aria-label="פעולות">
-      <button aria-label="חזרה" class="back">‹</button>
+      <button
+        type="button"
+        aria-label="חזרה"
+        class="back"
+        data-error-page="חזרה"
+      >‹</button>
 
-      <button aria-label="התראות" class="bell">
+      <button
+        type="button"
+        aria-label="התראות"
+        class="bell"
+        data-error-page="התראות"
+      >
+        <span id="notification-count" class="notification-count" aria-hidden="true" hidden>34</span>
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M18 16v-5a6 6 0 0 0-4.5-5.8V4a1.5 1.5 0 0 0-3 0v1.2A6 6 0 0 0 6 11v5l-2 2h16l-2-2Zm-6 6a2.2 2.2 0 0 0 2.1-2.1H9.9A2.2 2.2 0 0 0 12 22Z" />
         </svg>
       </button>
 
-      <button aria-label="עזרה" class="icon-button">
+      <button
+        type="button"
+        aria-label="עזרה"
+        class="icon-button"
+        data-error-page="עזרה"
+      >
         <svg viewBox="0 0 24 24" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false" aria-hidden="true">
           <circle cx="12" cy="12" r="10" fill="rgb(14, 103, 52)" />
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z" />
@@ -920,8 +985,8 @@
     </div>
   </header>
 
-  <main>
-    <h1>שחרורית</h1>
+  <main id="release-page">
+    <h1 id="release-title" tabindex="-1">שחרורית</h1>
 
     <section class="panel" aria-labelledby="sent-title">
       <div class="controls">
@@ -1008,12 +1073,7 @@
             aria-controls="release-details"
           >
             <span aria-hidden="true">
-              <svg
-                class="release-chevron"
-                viewBox="0 0 24 24"
-                focusable="false"
-                aria-hidden="true"
-              >
+              <svg class="release-chevron" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
                 <path d="M6 9 L12 15 L18 9" />
               </svg>
             </span>
@@ -1027,6 +1087,17 @@
       </article>
     </section>
   </main>
+
+  <main id="error-page" class="error-page" aria-labelledby="error-title" hidden>
+    <section class="error-card">
+      <h1 id="error-title" tabindex="-1">אירעה שגיאה</h1>
+    </section>
+  </main>
+
+  <div id="error-snackbar" class="error-snackbar" hidden>
+    <p role="status" aria-live="polite">אירעה שגיאה בהבאת המידע</p>
+    <button type="button" id="dismiss-error">הבנתי</button>
+  </div>
 
   <dialog
     id="approval-dialog"
@@ -1118,6 +1189,29 @@
 
   <script>
     (() => {
+      const trigger = document.querySelector('.more');
+      const menu = document.querySelector('#release-menu');
+      const item = menu.querySelector('[role="menuitem"]');
+      const expandButton = document.querySelector('.release-expand');
+      const releaseDetails = document.querySelector('#release-details');
+
+      const approvalDialog = document.querySelector('#approval-dialog');
+      const approvalClose = approvalDialog.querySelector('.approval-close');
+
+      const sidebar = document.querySelector('#main-sidebar');
+      const hamburger = document.querySelector('.menu-button');
+      const navigation = document.querySelector('#sidebar-navigation');
+
+      const releasePage = document.querySelector('#release-page');
+      const releaseTitle = document.querySelector('#release-title');
+      const errorPage = document.querySelector('#error-page');
+      const errorTitle = document.querySelector('#error-title');
+      const errorSnackbar = document.querySelector('#error-snackbar');
+      const appTitle = document.querySelector('#app-title');
+      const notificationCount = document.querySelector('#notification-count');
+
+      let focusAfterSidebarClose = null;
+
       function updateReleaseTimestamp() {
         const now = new Date();
         const rounded = new Date(now);
@@ -1140,12 +1234,6 @@
 
       updateReleaseTimestamp();
       setInterval(updateReleaseTimestamp, 1000);
-
-      const trigger = document.querySelector('.more');
-      const menu = document.querySelector('#release-menu');
-      const item = menu.querySelector('[role="menuitem"]');
-      const expandButton = document.querySelector('.release-expand');
-      const releaseDetails = document.querySelector('#release-details');
 
       function setDetailsExpanded(expanded) {
         releaseDetails.hidden = !expanded;
@@ -1244,9 +1332,6 @@
         if (!menu.hidden) positionMenu();
       }, true);
 
-      const approvalDialog = document.querySelector('#approval-dialog');
-      const approvalClose = approvalDialog.querySelector('.approval-close');
-
       function syncApprovalTimestamp() {
         updateReleaseTimestamp();
 
@@ -1270,30 +1355,101 @@
         document.body.classList.add('approval-open');
       });
 
-      approvalClose.addEventListener('click', () => approvalDialog.close());
+      approvalClose.addEventListener('click', () => {
+        approvalDialog.close();
+      });
 
-      approvalDialog.addEventListener('click', (event) => {
-        if (event.target !== approvalDialog) return;
+      function closeOnBackdropClick(dialog, event) {
+        if (event.target !== dialog) return;
 
-        const rect = approvalDialog.getBoundingClientRect();
+        const rect = dialog.getBoundingClientRect();
+
         if (
           event.clientX < rect.left ||
           event.clientX > rect.right ||
           event.clientY < rect.top ||
           event.clientY > rect.bottom
         ) {
-          approvalDialog.close();
+          dialog.close();
         }
+      }
+
+      approvalDialog.addEventListener('click', (event) => {
+        closeOnBackdropClick(approvalDialog, event);
       });
 
       approvalDialog.addEventListener('close', () => {
         document.body.classList.remove('approval-open');
-        trigger.focus({ preventScroll: true });
+
+        if (!releasePage.hidden) {
+          trigger.focus({ preventScroll: true });
+        }
       });
 
-      const sidebar = document.querySelector('#main-sidebar');
-      const hamburger = document.querySelector('.menu-button');
-      const navigation = document.querySelector('#sidebar-navigation');
+      function updateCurrentSidebarItem(label) {
+        navigation.querySelectorAll('.sidebar-item').forEach((button) => {
+          if (button.dataset.page === label) {
+            button.setAttribute('aria-current', 'page');
+          } else {
+            button.removeAttribute('aria-current');
+          }
+        });
+      }
+
+      function finishPageNavigation(focusTarget) {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
+        if (sidebar.open) {
+          focusAfterSidebarClose = focusTarget;
+          sidebar.close();
+        } else {
+          focusTarget.focus({ preventScroll: true });
+        }
+      }
+
+      function showErrorPage(label) {
+        closeMenu();
+
+        releasePage.hidden = true;
+        errorPage.hidden = false;
+        errorSnackbar.hidden = false;
+        notificationCount.hidden = false;
+
+        document.body.classList.add('error-mode');
+        appTitle.textContent = 'משו״ב - ' + label;
+        document.title = 'משו״ב - ' + label;
+
+        updateCurrentSidebarItem(label);
+        finishPageNavigation(errorTitle);
+      }
+
+      function showReleasePage() {
+        closeMenu();
+
+        errorPage.hidden = true;
+        errorSnackbar.hidden = true;
+        notificationCount.hidden = true;
+        releasePage.hidden = false;
+
+        document.body.classList.remove('error-mode');
+        appTitle.textContent = 'משו״ב - שחרורית';
+        document.title = 'משו״ב - שחרורית';
+
+        updateReleaseTimestamp();
+        updateCurrentSidebarItem('שחרורית');
+        finishPageNavigation(releaseTitle);
+      }
+
+      document.querySelectorAll('.top-actions [data-error-page]').forEach((button) => {
+        button.addEventListener('click', () => {
+          showErrorPage(button.dataset.errorPage);
+        });
+      });
+
+      document.querySelector('#dismiss-error').addEventListener('click', () => {
+        errorSnackbar.hidden = true;
+        errorTitle.focus({ preventScroll: true });
+      });
 
       const sidebarItems = [
         'לוח מידע',
@@ -1351,6 +1507,7 @@
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'sidebar-item';
+        button.dataset.page = label;
         button.textContent = label;
 
         if (label === 'שחרורית') {
@@ -1361,10 +1518,11 @@
           badge.textContent = 'חדש';
           button.appendChild(badge);
 
-          button.addEventListener('click', () => sidebar.close());
+          button.addEventListener('click', showReleasePage);
         } else {
-          button.setAttribute('aria-disabled', 'true');
-          button.title = 'עמוד זה עדיין לא מחובר';
+          button.addEventListener('click', () => {
+            showErrorPage(label);
+          });
         }
 
         return button;
@@ -1389,6 +1547,7 @@
 
       hamburger.addEventListener('click', () => {
         closeMenu();
+        focusAfterSidebarClose = null;
         sidebar.showModal();
         hamburger.setAttribute('aria-expanded', 'true');
         document.body.classList.add('sidebar-open');
@@ -1399,23 +1558,16 @@
       });
 
       sidebar.addEventListener('click', (event) => {
-        if (event.target !== sidebar) return;
-
-        const rect = sidebar.getBoundingClientRect();
-        if (
-          event.clientX < rect.left ||
-          event.clientX > rect.right ||
-          event.clientY < rect.top ||
-          event.clientY > rect.bottom
-        ) {
-          sidebar.close();
-        }
+        closeOnBackdropClick(sidebar, event);
       });
 
       sidebar.addEventListener('close', () => {
         hamburger.setAttribute('aria-expanded', 'false');
         document.body.classList.remove('sidebar-open');
-        hamburger.focus({ preventScroll: true });
+
+        const focusTarget = focusAfterSidebarClose || hamburger;
+        focusAfterSidebarClose = null;
+        focusTarget.focus({ preventScroll: true });
       });
     })();
   </script>
