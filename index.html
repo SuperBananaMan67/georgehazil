@@ -14,7 +14,7 @@
     />
     <link
       rel="stylesheet"
-      href="style.css?v=approval-dialog-20260915"
+      href="style.css?v=accepted-dialog-20260915"
     />
   </head>
 
@@ -178,17 +178,49 @@
         </p>
 
         <svg
-          class="approval-expired-icon"
+          class="approval-accepted-icon"
           viewBox="0 0 24 24"
           aria-hidden="true"
           focusable="false"
         >
-          <path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M4,12c0-4.4,3.6-8,8-8c1.8,0,3.5,0.6,4.9,1.7L5.7,16.9 C4.6,15.5,4,13.8,4,12z M12,20c-1.8,0-3.5-0.6-4.9-1.7L18.3,7.1C19.4,8.5,20,10.2,20,12C20,16.4,16.4,20,12,20z" />
+          <path d="m21.29 4.71-10 10a1 1 0 0 1-1.42 0l-4-4 1.42-1.42L10.58 12.58 19.87 3.29zM20 12a8 8 0 1 1-4.07-6.97l1.46-1.46A10 10 0 1 0 21.65 9.38L20 11.03V12z" />
         </svg>
 
-        <p id="approval-status" class="approval-status">
-          הבקשה אושרה אך פג תוקפה
-        </p>
+        <div class="approval-accepted-card">
+          <div class="approval-portrait">
+            <svg
+              viewBox="0 0 200 200"
+              role="img"
+              aria-label="תמונת פרופיל כללית"
+              focusable="false"
+            >
+              <path
+                fill="#888"
+                d="M20 190V134C29 127 46 123 65 114L72 104V89C65 85 62 76 62 69C58 64 60 57 63 55V39C63 16 83 7 103 8C129 8 147 21 147 43L145 57C150 63 146 75 141 79L135 94V108L146 116C161 123 174 127 180 132V190Z"
+              />
+            </svg>
+          </div>
+
+          <p id="approval-status" class="approval-status">
+            הבקשה התקבלה
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="approval-refresh"
+          aria-label="רענון האישור"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M17.65 6.35A7.95 7.95 0 0 0 12 4a8 8 0 1 0 7.93 9h-2.02A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z" />
+          </svg>
+        </button>
+
+        <span
+          id="approval-refresh-feedback"
+          class="visually-hidden"
+          role="status"
+        ></span>
       </div>
     </dialog>
 
@@ -335,15 +367,29 @@
         const approvalDialog = document.querySelector('#approval-dialog');
         const approvalClose = approvalDialog.querySelector('.approval-close');
 
-        item.addEventListener('click', () => {
-          closeMenu();
+        function syncApprovalTimestamp() {
+          updateReleaseTimestamp();
 
           document.querySelector('#approval-date').textContent =
             document.querySelector('#today').textContent;
 
           document.querySelector('#approval-time').textContent =
             document.querySelector('#rounded-time').textContent;
+        }
 
+        approvalDialog
+          .querySelector('.approval-refresh')
+          .addEventListener('click', () => {
+            syncApprovalTimestamp();
+
+            document.querySelector('#approval-refresh-feedback').textContent =
+              'התאריך והשעה עודכנו: ' +
+              new Date().toLocaleTimeString('he-IL');
+          });
+
+        item.addEventListener('click', () => {
+          closeMenu();
+          syncApprovalTimestamp();
           approvalDialog.showModal();
           document.body.classList.add('approval-open');
         });
