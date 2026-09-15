@@ -373,6 +373,101 @@ h2 {
   background: #f5f5f5;
 }
 
+body.approval-open {
+  overflow: hidden;
+}
+
+.approval-dialog {
+  width: min(480px, calc(100vw - 24px));
+  max-width: none;
+  max-height: calc(100dvh - 24px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: white;
+  color: #111;
+  box-shadow: 0 12px 32px #0005;
+  overflow: auto;
+}
+
+.approval-dialog::backdrop {
+  background: #0005;
+}
+
+.approval-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 52px;
+  padding: 0 20px 0 12px;
+  background: rgb(14, 103, 52);
+  color: white;
+}
+
+.approval-header h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: right;
+}
+
+.approval-close {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 50%;
+  color: white;
+}
+
+.approval-close svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.approval-close:hover {
+  background: #ffffff1a;
+}
+
+.approval-close:focus-visible {
+  outline: 2px solid white;
+  outline-offset: -4px;
+}
+
+.approval-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 16px 16px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.approval-content p {
+  margin: 0;
+}
+
+.approval-expired-icon {
+  display: block;
+  width: 80px;
+  height: 80px;
+  flex: 0 0 auto;
+  fill: #ff0202;
+}
+
+.approval-status {
+  padding: 7px 10px;
+  border-radius: 17px;
+  background: #fee2e2;
+  color: #ff0202;
+}
+
 @media (max-width: 600px) {
   .topbar {
     height: 92px;
