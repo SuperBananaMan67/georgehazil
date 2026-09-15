@@ -8,12 +8,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=taller-dialog-portrait-20260915-3" />
+  <link rel="stylesheet" href="style.css?v=sidebar-portrait-20260915-4" />
 </head>
 
 <body>
   <header class="topbar">
-    <button class="menu-button" aria-label="פתיחת תפריט">
+    <button
+      type="button"
+      class="menu-button"
+      aria-label="פתיחת תפריט"
+      aria-haspopup="dialog"
+      aria-expanded="false"
+      aria-controls="main-sidebar"
+    >
       <span></span><span></span><span></span>
     </button>
 
@@ -137,9 +144,7 @@
           </svg>
         </div>
 
-        <p id="approval-status" class="approval-status">
-          הבקשה התקבלה
-        </p>
+        <p id="approval-status" class="approval-status">הבקשה התקבלה</p>
       </div>
 
       <button type="button" class="approval-refresh" aria-label="רענון האישור">
@@ -150,6 +155,34 @@
 
       <span id="approval-refresh-feedback" class="visually-hidden" role="status"></span>
     </div>
+  </dialog>
+
+  <dialog id="main-sidebar" class="main-sidebar" dir="rtl" aria-labelledby="sidebar-title">
+    <header class="sidebar-header">
+      <button type="button" class="sidebar-close" aria-label="סגירת תפריט" autofocus>×</button>
+      <h2 id="sidebar-title">שלום לביא אלון יב3</h2>
+      <p>תיכון השקמים - הוד השרון</p>
+      <p>תשפ״ז</p>
+    </header>
+
+    <div class="sidebar-student">
+      <svg viewBox="0 0 200 200" role="img" aria-label="תמונת פרופיל כללית">
+        <path fill="#888" d="M20 190V134C29 127 46 123 65 114L72 104V89C65 85 62 76 62 69C58 64 60 57 63 55V39C63 16 83 7 103 8C129 8 147 21 147 43L145 57C150 63 146 75 141 79L135 94V108L146 116C161 123 174 127 180 132V190Z" />
+      </svg>
+      <div>
+        <p>אלון</p>
+        <p>כל השנה</p>
+      </div>
+    </div>
+
+    <nav id="sidebar-navigation" aria-label="תפריט ראשי"></nav>
+
+    <footer class="sidebar-footer">
+      <p>עברית | العربية | English | Українська | Русский</p>
+      <p>גרסה: 3.20210425</p>
+      <p>משו״ב תלמידים והורים</p>
+      <p>© 2026 - משו״ב</p>
+    </footer>
   </dialog>
 
   <script>
@@ -189,6 +222,7 @@
         const margin = 8;
         const width = menu.offsetWidth;
         const height = menu.offsetHeight;
+
         const left = Math.max(
           margin,
           Math.min(rect.left, window.innerWidth - width - margin)
@@ -290,8 +324,8 @@
 
       approvalDialog.addEventListener('click', (event) => {
         if (event.target !== approvalDialog) return;
-        const rect = approvalDialog.getBoundingClientRect();
 
+        const rect = approvalDialog.getBoundingClientRect();
         if (
           event.clientX < rect.left ||
           event.clientX > rect.right ||
@@ -305,6 +339,133 @@
       approvalDialog.addEventListener('close', () => {
         document.body.classList.remove('approval-open');
         trigger.focus({ preventScroll: true });
+      });
+
+      const sidebar = document.querySelector('#main-sidebar');
+      const hamburger = document.querySelector('.menu-button');
+      const navigation = document.querySelector('#sidebar-navigation');
+
+      const sidebarItems = [
+        'לוח מידע',
+        'קוד לזיהוי',
+        'שחרורית',
+        {
+          label: 'דואר ומסרונים (sms)',
+          children: [
+            'הודעה חדשה',
+            'דואר נכנס',
+            'ארכיון',
+            'דואר שלא נקרא',
+            'פריטים שנמחקו',
+            'דואר יוצא',
+            'טיוטות',
+            'ניהול תיקיות'
+          ]
+        },
+        'ציונים שוטפים',
+        'ציונים תקופתיים',
+        'ציוני בגרות',
+        'ציוני בגרות לפי מקצוע',
+        'מועדי בגרות',
+        'משוב ההצלחה שלי',
+        'תעודות',
+        'קול התלמיד',
+        'התנהגות בשיעור',
+        'מבט על',
+        'מרחב קבצים',
+        'בקשות הצדקה',
+        'אירועי התנהגות יומיים',
+        'התנהגות מחוץ לשיעור',
+        'מונה אירועים',
+        'שעות פרטניות',
+        'הערות מעקב',
+        'מערכת שעות',
+        'חומרי לימוד',
+        'שיעורי בית',
+        'טפסים מקוונים',
+        'אישורי הורים לפעילות',
+        'התאמות',
+        'התאמות בגרות',
+        'לוח מודעות',
+        'כיתה מקוונת',
+        'הקלטות',
+        'משימות Moodle',
+        'פרופיל אישי',
+        'אתר בית הספר',
+        'כניסה ל-Moodle',
+        'לוח מבחנים ואירועים (שחף)',
+        'התנתק/י'
+      ];
+
+      function makeSidebarButton(label) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'sidebar-item';
+        button.textContent = label;
+
+        if (label === 'שחרורית') {
+          button.setAttribute('aria-current', 'page');
+
+          const badge = document.createElement('span');
+          badge.className = 'sidebar-badge';
+          badge.textContent = 'חדש';
+          button.appendChild(badge);
+
+          button.addEventListener('click', () => sidebar.close());
+        } else {
+          button.setAttribute('aria-disabled', 'true');
+          button.title = 'עמוד זה עדיין לא מחובר';
+        }
+
+        return button;
+      }
+
+      sidebarItems.forEach((entry) => {
+        if (typeof entry === 'string') {
+          navigation.appendChild(makeSidebarButton(entry));
+        } else {
+          const group = document.createElement('details');
+          const summary = document.createElement('summary');
+          summary.textContent = entry.label + ' · 0';
+          group.appendChild(summary);
+
+          entry.children.forEach((label) => {
+            group.appendChild(makeSidebarButton(label));
+          });
+
+          navigation.appendChild(group);
+        }
+      });
+
+      hamburger.addEventListener('click', () => {
+        closeMenu();
+        sidebar.showModal();
+        hamburger.setAttribute('aria-expanded', 'true');
+        document.body.classList.add('sidebar-open');
+      });
+
+      sidebar.querySelector('.sidebar-close').addEventListener('click', () => {
+        sidebar.close();
+      });
+
+      sidebar.addEventListener('click', (event) => {
+        if (event.target !== sidebar) return;
+
+        const rect = sidebar.getBoundingClientRect();
+        if (
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom
+        ) {
+          sidebar.close();
+        }
+      });
+
+      sidebar.addEventListener('close', () => {
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('sidebar-open');
+        hamburger.focus({ preventScroll: true });
       });
     })();
   </script>
