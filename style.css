@@ -303,7 +303,7 @@ h2 {
 .release-expand span {
   display: block;
   font-family: Arial, sans-serif;
-  font-size: 20px;
+  font-size: 26px;
   font-weight: 700;
   line-height: 1;
   pointer-events: none;
@@ -817,7 +817,7 @@ body.sidebar-open {
   }
 
  .release-expand span {
-  font-size: 18px;
+  font-size: 24px;
 }
 
   .release-details {
