@@ -300,7 +300,6 @@
       order: 4;
     }
 
-    /* Center the button and its SVG independently of font metrics. */
     .release-expand {
       order: 5;
       display: grid;
@@ -555,29 +554,38 @@
       background: #dff0d5;
     }
 
+    /* Keep the portrait frame centered inside the green card. */
     .approval-portrait {
-      display: grid;
-      place-items: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 168px;
       max-width: 100%;
       height: 188px;
-      margin-inline: auto;
+      margin: 0 auto;
       padding: 0;
       border-radius: 4px;
       background: white;
       box-shadow: 0 2px 3px #0003;
+      overflow: hidden;
     }
 
-    .approval-portrait svg {
+    /* Fit the SVG to the frame instead of overflowing at 200px. */
+    .approval-portrait > svg {
       display: block;
-      width: 200px;
-      height: 200px;
-      max-width: none;
+      position: static;
+      flex: 0 0 auto;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      margin: 0;
+      padding: 0;
     }
 
-    .approval-portrait svg path {
+    .approval-portrait > svg path {
       transform-box: view-box;
-      transform-origin: center;
+      transform-origin: 50% 50%;
       transform: scaleX(0.88);
     }
 
@@ -690,6 +698,8 @@
     }
 
     .sidebar-student svg {
+      display: block;
+      flex: 0 0 76px;
       width: 76px;
       height: 84px;
       background: #f5f5f5;
@@ -1049,7 +1059,13 @@
 
       <div class="approval-accepted-card">
         <div class="approval-portrait">
-          <svg viewBox="0 0 200 200" role="img" aria-label="תמונת פרופיל כללית" focusable="false">
+          <svg
+            viewBox="0 0 200 200"
+            preserveAspectRatio="xMidYMid meet"
+            role="img"
+            aria-label="תמונת פרופיל כללית"
+            focusable="false"
+          >
             <path fill="#888" d="M20 190V134C29 127 46 123 65 114L72 104V89C65 85 62 76 62 69C58 64 60 57 63 55V39C63 16 83 7 103 8C129 8 147 21 147 43L145 57C150 63 146 75 141 79L135 94V108L146 116C161 123 174 127 180 132V190Z" />
           </svg>
         </div>
@@ -1076,7 +1092,12 @@
     </header>
 
     <div class="sidebar-student">
-      <svg viewBox="0 0 200 200" role="img" aria-label="תמונת פרופיל כללית">
+      <svg
+        viewBox="0 0 200 200"
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label="תמונת פרופיל כללית"
+      >
         <path fill="#888" d="M20 190V134C29 127 46 123 65 114L72 104V89C65 85 62 76 62 69C58 64 60 57 63 55V39C63 16 83 7 103 8C129 8 147 21 147 43L145 57C150 63 146 75 141 79L135 94V108L146 116C161 123 174 127 180 132V190Z" />
       </svg>
       <div>
@@ -1129,8 +1150,6 @@
       function setDetailsExpanded(expanded) {
         releaseDetails.hidden = !expanded;
         expandButton.setAttribute('aria-expanded', String(expanded));
-
-        // CSS rotates and sizes the SVG using aria-expanded.
         expandButton.setAttribute(
           'aria-label',
           expanded ? 'הסתרת פרטי הבקשה' : 'הצגת פרטי הבקשה'
