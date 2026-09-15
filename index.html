@@ -300,7 +300,6 @@
       order: 4;
     }
 
-    /* Center the button and its SVG independently of font metrics. */
     .release-expand {
       order: 5;
       display: grid;
@@ -1130,7 +1129,6 @@
         releaseDetails.hidden = !expanded;
         expandButton.setAttribute('aria-expanded', String(expanded));
 
-        // CSS rotates and sizes the SVG using aria-expanded.
         expandButton.setAttribute(
           'aria-label',
           expanded ? 'הסתרת פרטי הבקשה' : 'הצגת פרטי הבקשה'
@@ -1275,128 +1273,77 @@
       const sidebar = document.querySelector('#main-sidebar');
       const hamburger = document.querySelector('.menu-button');
       const navigation = document.querySelector('#sidebar-navigation');
+      const sidebarClose = sidebar.querySelector('.sidebar-close');
 
       const sidebarItems = [
         'לוח מידע',
         'קוד לזיהוי',
         'שחרורית',
         {
-          label: 'דואר ומסרונים (sms)',
-          children: [
-            'הודעה חדשה',
-            'דואר נכנס',
-            'ארכיון',
-            'דואר שלא נקרא',
-            'פריטים שנמחקו',
-            'דואר יוצא',
-            'טיוטות',
-            'ניהול תיקיות'
-          ]
+          label: 'לימודים',
+          children: ['מערכת שעות', 'שיעורי בית', 'ציונים והערכות', 'אירועי שיעור']
         },
-        'ציונים שוטפים',
-        'ציונים תקופתיים',
-        'ציוני בגרות',
-        'ציוני בגרות לפי מקצוע',
-        'מועדי בגרות',
-        'משוב ההצלחה שלי',
-        'תעודות',
-        'קול התלמיד',
-        'התנהגות בשיעור',
-        'מבט על',
-        'מרחב קבצים',
-        'בקשות הצדקה',
-        'אירועי התנהגות יומיים',
-        'התנהגות מחוץ לשיעור',
-        'מונה אירועים',
-        'שעות פרטניות',
-        'הערות מעקב',
-        'מערכת שעות',
-        'חומרי לימוד',
-        'שיעורי בית',
-        'טפסים מקוונים',
-        'אישורי הורים לפעילות',
-        'התאמות',
-        'התאמות בגרות',
-        'לוח מודעות',
-        'כיתה מקוונת',
-        'הקלטות',
-        'משימות Moodle',
-        'פרופיל אישי',
-        'אתר בית הספר',
-        'כניסה ל-Moodle',
-        'לוח מבחנים ואירועים (שחף)',
-        'התנתק/י'
+        'הודעות',
+        'אישורים וטפסים',
+        'הגדרות'
       ];
 
-      function makeSidebarButton(label) {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'sidebar-item';
-        button.textContent = label;
+      function renderSidebar() {
+        navigation.innerHTML = '';
+        sidebarItems.forEach((item) => {
+          if (typeof item === 'string') {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'sidebar-item';
+            btn.textContent = item;
+            if (item === 'שחרורית') {
+              btn.setAttribute('aria-current', 'page');
+            }
+            navigation.appendChild(btn);
+          } else if (item.label && item.children) {
+            const details = document.createElement('details');
+            const summary = document.createElement('summary');
+            summary.textContent = item.label;
+            details.appendChild(summary);
 
-        if (label === 'שחרורית') {
-          button.setAttribute('aria-current', 'page');
+            item.children.forEach((child) => {
+              const subBtn = document.createElement('button');
+              subBtn.type = 'button';
+              subBtn.className = 'sidebar-item';
+              subBtn.textContent = child;
+              details.appendChild(subBtn);
+            });
 
-          const badge = document.createElement('span');
-          badge.className = 'sidebar-badge';
-          badge.textContent = 'חדש';
-          button.appendChild(badge);
-
-          button.addEventListener('click', () => sidebar.close());
-        } else {
-          button.setAttribute('aria-disabled', 'true');
-          button.title = 'עמוד זה עדיין לא מחובר';
-        }
-
-        return button;
+            navigation.appendChild(details);
+          }
+        });
       }
 
-      sidebarItems.forEach((entry) => {
-        if (typeof entry === 'string') {
-          navigation.appendChild(makeSidebarButton(entry));
-        } else {
-          const group = document.createElement('details');
-          const summary = document.createElement('summary');
-          summary.textContent = entry.label + ' · 0';
-          group.appendChild(summary);
+      renderSidebar();
 
-          entry.children.forEach((label) => {
-            group.appendChild(makeSidebarButton(label));
-          });
-
-          navigation.appendChild(group);
-        }
-      });
-
-      hamburger.addEventListener('click', () => {
-        closeMenu();
+      function openSidebar() {
         sidebar.showModal();
         hamburger.setAttribute('aria-expanded', 'true');
         document.body.classList.add('sidebar-open');
-      });
+      }
 
-      sidebar.querySelector('.sidebar-close').addEventListener('click', () => {
+      function closeSidebar() {
         sidebar.close();
-      });
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('sidebar-open');
+      }
+
+      hamburger.addEventListener('click', openSidebar);
+      sidebarClose.addEventListener('click', closeSidebar);
 
       sidebar.addEventListener('click', (event) => {
-        if (event.target !== sidebar) return;
-
-        const rect = sidebar.getBoundingClientRect();
-        if (
-          event.clientX < rect.left ||
-          event.clientX > rect.right ||
-          event.clientY < rect.top ||
-          event.clientY > rect.bottom
-        ) {
-          sidebar.close();
-        }
+        if (event.target === sidebar) closeSidebar();
       });
 
       sidebar.addEventListener('close', () => {
-        hamburger.setAttribute('aria-expanded', 'false');
         document.body.classList.remove('sidebar-open');
-        hamburger.focus({ preventScroll: true });
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.focus();
       });
     })();
   </script>
