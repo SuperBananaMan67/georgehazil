@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=sidebar-portrait-20260915-4" />
+  <link rel="stylesheet" href="style.css?v=release-details-20260915-5" />
 </head>
 
 <body>
@@ -92,11 +92,25 @@
 
         <div class="release-row">
           <div class="release-actions">
-            <button type="button" class="more" aria-label="פעולות נוספות" aria-haspopup="menu" aria-expanded="false" aria-controls="release-menu">
+            <button
+              type="button"
+              class="more"
+              aria-label="פעולות נוספות"
+              aria-haspopup="menu"
+              aria-expanded="false"
+              aria-controls="release-menu"
+            >
               <span aria-hidden="true">⋮</span>
             </button>
 
-            <div id="release-menu" class="release-menu" role="menu" aria-label="פעולות נוספות" dir="rtl" hidden>
+            <div
+              id="release-menu"
+              class="release-menu"
+              role="menu"
+              aria-label="פעולות נוספות"
+              dir="rtl"
+              hidden
+            >
               <button type="button" class="release-menu-item" role="menuitem" tabindex="-1">
                 <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
                   <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
@@ -109,12 +123,35 @@
           <span class="status">התקבל</span>
           <time id="rounded-time">22:00</time>
           <time id="today">14/09/26</time>
+
+          <button
+            type="button"
+            class="release-expand"
+            aria-label="הצגת פרטי הבקשה"
+            aria-expanded="false"
+            aria-controls="release-details"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+        </div>
+
+        <div id="release-details" class="release-details" dir="rtl" hidden>
+          <p><strong>הערה:</strong> מאושר</p>
+          <p><strong>שם מורה משחרר:</strong> אפרת גבריאל ספיר</p>
         </div>
       </article>
     </section>
   </main>
 
-  <dialog id="approval-dialog" class="approval-dialog" dir="rtl" aria-labelledby="approval-title" aria-describedby="approval-description approval-status">
+  <dialog
+    id="approval-dialog"
+    class="approval-dialog"
+    dir="rtl"
+    aria-labelledby="approval-title"
+    aria-describedby="approval-description approval-status"
+  >
     <header class="approval-header">
       <h2 id="approval-title">אלון לביא</h2>
 
@@ -213,6 +250,21 @@
       const trigger = document.querySelector('.more');
       const menu = document.querySelector('#release-menu');
       const item = menu.querySelector('[role="menuitem"]');
+      const expandButton = document.querySelector('.release-expand');
+      const releaseDetails = document.querySelector('#release-details');
+
+      function setDetailsExpanded(expanded) {
+        releaseDetails.hidden = !expanded;
+        expandButton.setAttribute('aria-expanded', String(expanded));
+        expandButton.setAttribute(
+          'aria-label',
+          expanded ? 'הסתרת פרטי הבקשה' : 'הצגת פרטי הבקשה'
+        );
+      }
+
+      expandButton.addEventListener('click', () => {
+        setDetailsExpanded(releaseDetails.hidden);
+      });
 
       document.body.appendChild(menu);
 
@@ -229,6 +281,7 @@
         );
 
         let top = rect.bottom + gap;
+
         if (top + height > window.innerHeight - margin) {
           top = rect.top - height - gap;
         }
@@ -244,6 +297,7 @@
       }
 
       function openMenu() {
+        setDetailsExpanded(true);
         menu.hidden = false;
         trigger.setAttribute('aria-expanded', 'true');
         positionMenu();
@@ -301,8 +355,10 @@
 
       function syncApprovalTimestamp() {
         updateReleaseTimestamp();
+
         document.querySelector('#approval-date').textContent =
           document.querySelector('#today').textContent;
+
         document.querySelector('#approval-time').textContent =
           document.querySelector('#rounded-time').textContent;
       }
