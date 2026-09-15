@@ -379,6 +379,7 @@ body.approval-open {
 
 .approval-dialog {
   width: min(640px, calc(100vw - 24px));
+  min-height: min(660px, calc(100dvh - 24px));
   max-width: none;
   max-height: calc(100dvh - 24px);
   margin: auto;
@@ -462,7 +463,7 @@ body.approval-open {
 }
 
 .approval-accepted-card {
-  width: min(264px, 100%);
+  width: min(240px, 100%);
   padding: 12px;
   border-radius: 22px;
   background: #dff0d5;
@@ -471,8 +472,8 @@ body.approval-open {
 .approval-portrait {
   display: grid;
   place-items: center;
-  height: 212px;
-  padding: 10px 20px;
+  height: 200px;
+  padding: 6px 10px;
   border-radius: 4px;
   background: white;
   box-shadow: 0 2px 3px #0003;
@@ -482,6 +483,12 @@ body.approval-open {
   display: block;
   width: 100%;
   height: 100%;
+}
+
+.approval-portrait svg path {
+  transform-box: view-box;
+  transform-origin: center;
+  transform: scaleX(0.88);
 }
 
 .approval-status {
