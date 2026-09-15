@@ -816,14 +816,14 @@ body.sidebar-open {
     padding: 0;
   }
 
-  .release-expand span {
-    font-size: 26px;
-  }
+ .release-expand span {
+  font-size: 18px;
+}
 
   .release-details {
-    padding: 0 16px 26px;
-    font-size: clamp(24px, 5.5vw, 32px);
-  }
+  padding: 0 16px 18px;
+  font-size: clamp(18px, 4vw, 26px);
+}
 
   .release-row .more {
     width: 40px;
