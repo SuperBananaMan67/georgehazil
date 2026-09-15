@@ -300,30 +300,47 @@
       order: 4;
     }
 
+    /* Center the button and its SVG independently of font metrics. */
     .release-expand {
       order: 5;
       display: grid;
       place-items: center;
+      align-self: center;
       flex: 0 0 64px;
       width: 64px;
       height: 64px;
+      margin: 0;
       padding: 0;
       color: #777;
       border-radius: 50%;
+      line-height: 0;
     }
 
     .release-expand span {
-      display: block;
-      font-family: Arial, sans-serif;
-      font-size: 40px;
-      font-weight: 700;
-      line-height: 1;
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      line-height: 0;
       pointer-events: none;
     }
 
-    /* Larger down arrow on computers. */
-    .release-expand[aria-expanded="false"] span {
-      font-size: 48px;
+    .release-expand .release-chevron {
+      display: block;
+      width: 48px;
+      height: 48px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transform-origin: center;
+    }
+
+    .release-expand[aria-expanded="true"] .release-chevron {
+      width: 40px;
+      height: 40px;
+      transform: rotate(180deg);
     }
 
     .release-expand:hover,
@@ -833,13 +850,14 @@
         padding: 0;
       }
 
-      .release-expand span {
-        font-size: 30px;
+      .release-expand .release-chevron {
+        width: 38px;
+        height: 38px;
       }
 
-      /* Larger down arrow on mobile. */
-      .release-expand[aria-expanded="false"] span {
-        font-size: 38px;
+      .release-expand[aria-expanded="true"] .release-chevron {
+        width: 30px;
+        height: 30px;
       }
 
       .release-details {
@@ -979,7 +997,16 @@
             aria-expanded="false"
             aria-controls="release-details"
           >
-            <span aria-hidden="true">⌄</span>
+            <span aria-hidden="true">
+              <svg
+                class="release-chevron"
+                viewBox="0 0 24 24"
+                focusable="false"
+                aria-hidden="true"
+              >
+                <path d="M6 9 L12 15 L18 9" />
+              </svg>
+            </span>
           </button>
         </div>
 
@@ -1102,7 +1129,8 @@
       function setDetailsExpanded(expanded) {
         releaseDetails.hidden = !expanded;
         expandButton.setAttribute('aria-expanded', String(expanded));
-        expandButton.querySelector('span').textContent = expanded ? '⌃' : '⌄';
+
+        // CSS rotates and sizes the SVG using aria-expanded.
         expandButton.setAttribute(
           'aria-label',
           expanded ? 'הסתרת פרטי הבקשה' : 'הצגת פרטי הבקשה'
