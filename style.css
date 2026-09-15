@@ -378,7 +378,7 @@ body.approval-open {
 }
 
 .approval-dialog {
-  width: min(480px, calc(100vw - 24px));
+  width: min(640px, calc(100vw - 24px));
   max-width: none;
   max-height: calc(100dvh - 24px);
   margin: auto;
@@ -399,15 +399,15 @@ body.approval-open {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 52px;
-  padding: 0 20px 0 12px;
+  min-height: 68px;
+  padding: 0 26px 0 16px;
   background: rgb(14, 103, 52);
   color: white;
 }
 
 .approval-header h2 {
   margin: 0;
-  font-size: 16px;
+  font-size: 21px;
   font-weight: 500;
   line-height: 1.4;
   text-align: right;
@@ -416,16 +416,16 @@ body.approval-open {
 .approval-close {
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
-  padding: 10px;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
   border-radius: 50%;
   color: white;
 }
 
 .approval-close svg {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   fill: currentColor;
 }
 
@@ -442,10 +442,10 @@ body.approval-open {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 14px 16px 16px;
+  gap: 10px;
+  padding: 20px 24px 24px;
   text-align: center;
-  font-size: 13px;
+  font-size: 17px;
   line-height: 1.5;
 }
 
@@ -455,15 +455,15 @@ body.approval-open {
 
 .approval-expired-icon {
   display: block;
-  width: 80px;
-  height: 80px;
+  width: 108px;
+  height: 108px;
   flex: 0 0 auto;
   fill: #ff0202;
 }
 
 .approval-status {
-  padding: 7px 10px;
-  border-radius: 17px;
+  padding: 10px 14px;
+  border-radius: 20px;
   background: #fee2e2;
   color: #ff0202;
 }
