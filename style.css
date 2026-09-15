@@ -319,12 +319,12 @@ h2 {
 }
 
 .release-details {
-  padding: 0 28px 32px;
+  padding: 0 28px 20px;
   background: #f4f4f4;
   text-align: right;
   color: #222;
-  font-size: clamp(28px, 4.5vw, 46px);
-  line-height: 1.6;
+  font-size: clamp(20px, 3vw, 30px);
+  line-height: 1.4;
   overflow-wrap: anywhere;
 }
 
