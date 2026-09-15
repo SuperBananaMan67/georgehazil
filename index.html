@@ -254,7 +254,7 @@
       function setDetailsExpanded(expanded) {
         releaseDetails.hidden = !expanded;
         expandButton.setAttribute('aria-expanded', String(expanded));
-        expandButton.querySelector('span').textContent = expanded ? '^' : 'v';
+        expandButton.querySelector('span').textContent = expanded ? '⌃' : '⌄';
         expandButton.setAttribute(
           'aria-label',
           expanded ? 'הסתרת פרטי הבקשה' : 'הצגת פרטי הבקשה'
