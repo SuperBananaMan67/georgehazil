@@ -292,25 +292,21 @@ h2 {
   order: 5;
   display: grid;
   place-items: center;
-  flex: 0 0 48px;
-  width: 48px;
-  height: 48px;
-  padding: 6px;
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
+  padding: 0;
   color: #777;
   border-radius: 50%;
 }
 
-.release-expand svg {
-  width: 36px;
-  height: 36px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 3;
-  transition: transform 160ms ease;
-}
-
-.release-expand[aria-expanded="true"] svg {
-  transform: rotate(180deg);
+.release-expand span {
+  display: block;
+  font-family: Arial, sans-serif;
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
 }
 
 .release-expand:hover,
@@ -327,7 +323,7 @@ h2 {
   background: #f4f4f4;
   text-align: right;
   color: #222;
-  font-size: clamp(22px, 3.8vw, 39px);
+  font-size: clamp(28px, 4.5vw, 46px);
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
@@ -810,20 +806,19 @@ body.sidebar-open {
   }
 
   .release-expand {
-    flex-basis: 32px;
-    width: 32px;
-    height: 40px;
-    padding: 3px;
+    flex-basis: 44px;
+    width: 44px;
+    height: 48px;
+    padding: 0;
   }
 
-  .release-expand svg {
-    width: 26px;
-    height: 26px;
+  .release-expand span {
+    font-size: 38px;
   }
 
   .release-details {
-    padding: 10px 16px 22px;
-    font-size: clamp(19px, 4.5vw, 26px);
+    padding: 14px 16px 26px;
+    font-size: clamp(24px, 5.5vw, 32px);
   }
 
   .release-row .more {
