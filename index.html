@@ -14,7 +14,7 @@
     />
     <link
       rel="stylesheet"
-      href="style.css?v=smaller-dots-20260915-2"
+      href="style.css?v=approval-dialog-20260915"
     />
   </head>
 
@@ -146,6 +146,51 @@
         </article>
       </section>
     </main>
+
+    <dialog
+      id="approval-dialog"
+      class="approval-dialog"
+      dir="rtl"
+      aria-labelledby="approval-title"
+      aria-describedby="approval-description approval-status"
+    >
+      <header class="approval-header">
+        <h2 id="approval-title">אלון לביא</h2>
+
+        <button
+          type="button"
+          class="approval-close"
+          aria-label="סגירה"
+          autofocus
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+          </svg>
+        </button>
+      </header>
+
+      <div class="approval-content">
+        <p id="approval-description">
+          בקשתך לשחרור לתאריך
+          <bdi id="approval-date"></bdi>
+          בשעה
+          <bdi id="approval-time"></bdi>
+        </p>
+
+        <svg
+          class="approval-expired-icon"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M4,12c0-4.4,3.6-8,8-8c1.8,0,3.5,0.6,4.9,1.7L5.7,16.9 C4.6,15.5,4,13.8,4,12z M12,20c-1.8,0-3.5-0.6-4.9-1.7L18.3,7.1C19.4,8.5,20,10.2,20,12C20,16.4,16.4,20,12,20z" />
+        </svg>
+
+        <p id="approval-status" class="approval-status">
+          הבקשה אושרה אך פג תוקפה
+        </p>
+      </div>
+    </dialog>
 
     <script>
       (() => {
@@ -287,7 +332,47 @@
           true
         );
 
-        item.addEventListener('click', () => closeMenu(true));
+        const approvalDialog = document.querySelector('#approval-dialog');
+        const approvalClose = approvalDialog.querySelector('.approval-close');
+
+        item.addEventListener('click', () => {
+          closeMenu();
+
+          document.querySelector('#approval-date').textContent =
+            document.querySelector('#today').textContent;
+
+          document.querySelector('#approval-time').textContent =
+            document.querySelector('#rounded-time').textContent;
+
+          approvalDialog.showModal();
+          document.body.classList.add('approval-open');
+        });
+
+        approvalClose.addEventListener('click', () => {
+          approvalDialog.close();
+        });
+
+        approvalDialog.addEventListener('click', (event) => {
+          if (event.target !== approvalDialog) {
+            return;
+          }
+
+          const rect = approvalDialog.getBoundingClientRect();
+
+          if (
+            event.clientX < rect.left ||
+            event.clientX > rect.right ||
+            event.clientY < rect.top ||
+            event.clientY > rect.bottom
+          ) {
+            approvalDialog.close();
+          }
+        });
+
+        approvalDialog.addEventListener('close', () => {
+          document.body.classList.remove('approval-open');
+          trigger.focus({ preventScroll: true });
+        });
       })();
     </script>
   </body>
