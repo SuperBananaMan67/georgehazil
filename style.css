@@ -303,10 +303,11 @@ h2 {
 .release-expand span {
   display: block;
   font-family: Arial, sans-serif;
-  font-size: 26px;
+  font-size: 40px;
   font-weight: 700;
   line-height: 1;
   pointer-events: none;
+  transform: translateY(-3px);
 }
 
 .release-expand:hover,
