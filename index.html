@@ -742,7 +742,6 @@
 
     .sidebar-footer p { margin: 6px 0; }
 
-    /* Error screen from the reference image. */
     body.error-mode {
       min-height: 100vh;
       min-height: 100dvh;
@@ -976,7 +975,14 @@
         class="icon-button"
         data-error-page="עזרה"
       >
-        <svg viewBox="0 0 24 24" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          height="100%"
+          width="100%"
+          preserveAspectRatio="xMidYMid meet"
+          focusable="false"
+          aria-hidden="true"
+        >
           <circle cx="12" cy="12" r="10" fill="rgb(14, 103, 52)" />
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z" />
         </svg>
@@ -1051,7 +1057,12 @@
               dir="rtl"
               hidden
             >
-              <button type="button" class="release-menu-item" role="menuitem" tabindex="-1">
+              <button
+                type="button"
+                class="release-menu-item"
+                role="menuitem"
+                tabindex="-1"
+              >
                 <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
                   <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
                 </svg>
@@ -1072,7 +1083,12 @@
             aria-controls="release-details"
           >
             <span aria-hidden="true">
-              <svg class="release-chevron" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+              <svg
+                class="release-chevron"
+                viewBox="0 0 24 24"
+                focusable="false"
+                aria-hidden="true"
+              >
                 <path d="M6 9 L12 15 L18 9" />
               </svg>
             </span>
@@ -1123,7 +1139,12 @@
         <bdi id="approval-time"></bdi>
       </p>
 
-      <svg class="approval-accepted-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <svg
+        class="approval-accepted-icon"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+        focusable="false"
+      >
         <path d="m21.29 4.71-10 10a1 1 0 0 1-1.42 0l-4-4 1.42-1.42L10.58 12.58 19.87 3.29zM20 12a8 8 0 1 1-4.07-6.97l1.46-1.46A10 10 0 1 0 21.65 9.38L20 11.03V12z" />
       </svg>
 
@@ -1412,7 +1433,8 @@
         releasePage.hidden = true;
         errorPage.hidden = false;
         errorSnackbar.hidden = false;
-        notificationCount.hidden = false;
+
+        if (notificationCount) notificationCount.hidden = false;
 
         document.body.classList.add('error-mode');
         appTitle.textContent = 'משו״ב - ' + label;
@@ -1427,7 +1449,9 @@
 
         errorPage.hidden = true;
         errorSnackbar.hidden = true;
-        notificationCount.hidden = true;
+
+        if (notificationCount) notificationCount.hidden = true;
+
         releasePage.hidden = false;
 
         document.body.classList.remove('error-mode');
@@ -1516,16 +1540,21 @@
           badge.className = 'sidebar-badge';
           badge.textContent = 'חדש';
           button.appendChild(badge);
-
-          button.addEventListener('click', showReleasePage);
-        } else {
-          button.addEventListener('click', () => {
-            showErrorPage(label);
-          });
         }
 
         return button;
       }
+
+      navigation.addEventListener('click', (event) => {
+        const button = event.target.closest('.sidebar-item[data-page]');
+        if (!button || !navigation.contains(button)) return;
+
+        if (button.dataset.page === 'שחרורית') {
+          showReleasePage();
+        } else {
+          showErrorPage(button.dataset.page);
+        }
+      });
 
       sidebarItems.forEach((entry) => {
         if (typeof entry === 'string') {
