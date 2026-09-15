@@ -22,6 +22,69 @@
       display: none !important;
     }
 
+    body.setup-mode {
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    .setup-screen {
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: 24px;
+    }
+
+    .setup-form {
+      width: min(440px, 100%);
+      padding: clamp(24px, 5vw, 40px);
+      border: 1px solid #dedede;
+      border-radius: 12px;
+      background: white;
+      box-shadow: 0 3px 12px #0002;
+    }
+
+    .setup-form h1 {
+      margin: 0 0 28px;
+      color: #0e6734;
+      font-size: 32px;
+      line-height: 1.3;
+    }
+
+    .setup-form label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .setup-form input {
+      display: block;
+      width: 100%;
+      min-height: 48px;
+      margin-bottom: 22px;
+      padding: 10px 12px;
+      border: 1px solid #999;
+      border-radius: 6px;
+      font: inherit;
+      font-size: 20px;
+    }
+
+    .setup-form button {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px;
+      border-radius: 6px;
+      background: #0e6734;
+      color: white;
+      font-size: 20px;
+    }
+
+    .setup-form input:focus-visible,
+    .setup-form button:focus-visible {
+      outline: 3px solid #0e6734;
+      outline-offset: 3px;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
@@ -935,8 +998,34 @@
   </style>
 </head>
 
-<body>
-  <header class="topbar">
+<body class="setup-mode">
+  <main id="setup-screen" class="setup-screen" aria-labelledby="setup-title">
+    <form id="profile-form" class="setup-form">
+      <h1 id="setup-title">פרטי תלמיד/ה</h1>
+
+      <label for="full-name">שם מלא:</label>
+      <input
+        id="full-name"
+        name="fullName"
+        type="text"
+        autocomplete="name"
+        required
+        autofocus
+      />
+
+      <label for="student-class">כיתה:</label>
+      <input
+        id="student-class"
+        name="studentClass"
+        type="text"
+        required
+      />
+
+      <button type="submit">המשך</button>
+    </form>
+  </main>
+
+  <header class="topbar" hidden>
     <button
       type="button"
       class="menu-button"
@@ -990,7 +1079,7 @@
     </div>
   </header>
 
-  <main id="release-page">
+  <main id="release-page" hidden>
     <h1 id="release-title" tabindex="-1">שחרורית</h1>
 
     <section class="panel" aria-labelledby="sent-title">
@@ -1122,7 +1211,7 @@
     aria-describedby="approval-description approval-status"
   >
     <header class="approval-header">
-      <h2 id="approval-title">אלון לביא</h2>
+      <h2 id="approval-title"></h2>
 
       <button type="button" class="approval-close" aria-label="סגירה" autofocus>
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -1177,7 +1266,7 @@
   <dialog id="main-sidebar" class="main-sidebar" dir="rtl" aria-labelledby="sidebar-title">
     <header class="sidebar-header">
       <button type="button" class="sidebar-close" aria-label="סגירת תפריט" autofocus>×</button>
-      <h2 id="sidebar-title">שלום לביא אלון יב3</h2>
+      <h2 id="sidebar-title"></h2>
       <p>תיכון השקמים - הוד השרון</p>
       <p>תשפ״ז</p>
     </header>
@@ -1191,8 +1280,9 @@
       >
         <path fill="#888" d="M20 190V134C29 127 46 123 65 114L72 104V89C65 85 62 76 62 69C58 64 60 57 63 55V39C63 16 83 7 103 8C129 8 147 21 147 43L145 57C150 63 146 75 141 79L135 94V108L146 116C161 123 174 127 180 132V190Z" />
       </svg>
+
       <div>
-        <p>אלון</p>
+        <p id="sidebar-student-name"></p>
         <p>כל השנה</p>
       </div>
     </div>
@@ -1232,10 +1322,57 @@
 
       let focusAfterSidebarClose = null;
 
+      const profileForm = document.querySelector('#profile-form');
+      const fullNameInput = document.querySelector('#full-name');
+      const classInput = document.querySelector('#student-class');
+
+      [fullNameInput, classInput].forEach((input) => {
+        input.addEventListener('input', () => {
+          input.setCustomValidity('');
+        });
+      });
+
+      profileForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const fullName = fullNameInput.value.trim();
+        const studentClass = classInput.value.trim();
+
+        fullNameInput.setCustomValidity(
+          fullName ? '' : 'יש להזין שם מלא'
+        );
+
+        classInput.setCustomValidity(
+          studentClass ? '' : 'יש להזין כיתה'
+        );
+
+        if (!profileForm.reportValidity()) return;
+
+        document.querySelector('#approval-title').textContent =
+          fullName;
+
+        document.querySelector('#sidebar-title').textContent =
+          `שלום ${fullName} ${studentClass}`;
+
+        document.querySelector('#sidebar-student-name').textContent =
+          fullName;
+
+        document.querySelector('#setup-screen').hidden = true;
+        document.querySelector('.topbar').hidden = false;
+        document.body.classList.remove('setup-mode');
+
+        showReleasePage();
+      });
+
       function updateReleaseTimestamp() {
         const now = new Date();
         const rounded = new Date(now);
-        rounded.setMinutes(Math.floor(now.getMinutes() / 30) * 30, 0, 0);
+
+        rounded.setMinutes(
+          Math.floor(now.getMinutes() / 30) * 30,
+          0,
+          0
+        );
 
         document.querySelector('#today').textContent =
           new Intl.DateTimeFormat('en-GB', {
@@ -1257,7 +1394,12 @@
 
       function setDetailsExpanded(expanded) {
         releaseDetails.hidden = !expanded;
-        expandButton.setAttribute('aria-expanded', String(expanded));
+
+        expandButton.setAttribute(
+          'aria-expanded',
+          String(expanded)
+        );
+
         expandButton.setAttribute(
           'aria-label',
           expanded ? 'הסתרת פרטי הבקשה' : 'הצגת פרטי הבקשה'
@@ -1295,7 +1437,10 @@
       function closeMenu(restoreFocus = false) {
         menu.hidden = true;
         trigger.setAttribute('aria-expanded', 'false');
-        if (restoreFocus) trigger.focus();
+
+        if (restoreFocus) {
+          trigger.focus();
+        }
       }
 
       function openMenu() {
@@ -1307,8 +1452,11 @@
       }
 
       trigger.addEventListener('click', () => {
-        if (menu.hidden) openMenu();
-        else closeMenu(true);
+        if (menu.hidden) {
+          openMenu();
+        } else {
+          closeMenu(true);
+        }
       });
 
       trigger.addEventListener('keydown', (event) => {
@@ -1319,7 +1467,10 @@
       });
 
       document.addEventListener('click', (event) => {
-        if (!trigger.contains(event.target) && !menu.contains(event.target)) {
+        if (
+          !trigger.contains(event.target) &&
+          !menu.contains(event.target)
+        ) {
           closeMenu();
         }
       });
@@ -1332,24 +1483,33 @@
       });
 
       menu.addEventListener('keydown', (event) => {
-        if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
+        if (
+          ['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)
+        ) {
           event.preventDefault();
           item.focus();
         }
       });
 
       document.addEventListener('focusin', (event) => {
-        if (!trigger.contains(event.target) && !menu.contains(event.target)) {
+        if (
+          !trigger.contains(event.target) &&
+          !menu.contains(event.target)
+        ) {
           closeMenu();
         }
       });
 
       window.addEventListener('resize', () => {
-        if (!menu.hidden) positionMenu();
+        if (!menu.hidden) {
+          positionMenu();
+        }
       });
 
       window.addEventListener('scroll', () => {
-        if (!menu.hidden) positionMenu();
+        if (!menu.hidden) {
+          positionMenu();
+        }
       }, true);
 
       function syncApprovalTimestamp() {
@@ -1362,11 +1522,15 @@
           document.querySelector('#rounded-time').textContent;
       }
 
-      approvalDialog.querySelector('.approval-refresh').addEventListener('click', () => {
-        syncApprovalTimestamp();
-        document.querySelector('#approval-refresh-feedback').textContent =
-          'התאריך והשעה עודכנו: ' + new Date().toLocaleTimeString('he-IL');
-      });
+      approvalDialog
+        .querySelector('.approval-refresh')
+        .addEventListener('click', () => {
+          syncApprovalTimestamp();
+
+          document.querySelector('#approval-refresh-feedback').textContent =
+            'התאריך והשעה עודכנו: ' +
+            new Date().toLocaleTimeString('he-IL');
+        });
 
       item.addEventListener('click', () => {
         closeMenu();
@@ -1417,7 +1581,11 @@
       }
 
       function finishPageNavigation(focusTarget) {
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'instant'
+        });
 
         if (sidebar.open) {
           focusAfterSidebarClose = focusTarget;
@@ -1434,7 +1602,9 @@
         errorPage.hidden = false;
         errorSnackbar.hidden = false;
 
-        if (notificationCount) notificationCount.hidden = false;
+        if (notificationCount) {
+          notificationCount.hidden = false;
+        }
 
         document.body.classList.add('error-mode');
         appTitle.textContent = 'משו״ב - ' + label;
@@ -1450,7 +1620,9 @@
         errorPage.hidden = true;
         errorSnackbar.hidden = true;
 
-        if (notificationCount) notificationCount.hidden = true;
+        if (notificationCount) {
+          notificationCount.hidden = true;
+        }
 
         releasePage.hidden = false;
 
@@ -1463,11 +1635,13 @@
         finishPageNavigation(releaseTitle);
       }
 
-      document.querySelectorAll('.top-actions [data-error-page]').forEach((button) => {
-        button.addEventListener('click', () => {
-          showErrorPage(button.dataset.errorPage);
+      document
+        .querySelectorAll('.top-actions [data-error-page]')
+        .forEach((button) => {
+          button.addEventListener('click', () => {
+            showErrorPage(button.dataset.errorPage);
+          });
         });
-      });
 
       document.querySelector('#dismiss-error').addEventListener('click', () => {
         errorSnackbar.hidden = true;
@@ -1547,7 +1721,10 @@
 
       navigation.addEventListener('click', (event) => {
         const button = event.target.closest('.sidebar-item[data-page]');
-        if (!button || !navigation.contains(button)) return;
+
+        if (!button || !navigation.contains(button)) {
+          return;
+        }
 
         if (button.dataset.page === 'שחרורית') {
           showReleasePage();
@@ -1562,6 +1739,7 @@
         } else {
           const group = document.createElement('details');
           const summary = document.createElement('summary');
+
           summary.textContent = entry.label + ' · 0';
           group.appendChild(summary);
 
