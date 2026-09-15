@@ -303,7 +303,7 @@ h2 {
 .release-expand span {
   display: block;
   font-family: Arial, sans-serif;
-  font-size: 52px;
+  font-size: 32px;
   font-weight: 700;
   line-height: 1;
   pointer-events: none;
@@ -319,7 +319,7 @@ h2 {
 }
 
 .release-details {
-  padding: 12px 28px 32px;
+  padding: 0 28px 32px;
   background: #f4f4f4;
   text-align: right;
   color: #222;
@@ -334,6 +334,10 @@ h2 {
 
 .release-details strong {
   font-weight: 700;
+}
+
+.release-card:has(.release-expand[aria-expanded="true"]) .release-row {
+  padding-bottom: 0;
 }
 
 .status {
@@ -813,11 +817,11 @@ body.sidebar-open {
   }
 
   .release-expand span {
-    font-size: 38px;
+    font-size: 26px;
   }
 
   .release-details {
-    padding: 14px 16px 26px;
+    padding: 0 16px 26px;
     font-size: clamp(24px, 5.5vw, 32px);
   }
 
