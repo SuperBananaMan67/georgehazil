@@ -1,1351 +1,836 @@
-<!doctype html>
-<html lang="he" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>משו״ב - שחרורית</title>
-  <meta name="description" content="דף שחרורית מותאם ל-GitHub Pages" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-
-  <style>
-    :root {
-      color-scheme: light;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      min-height: 1082.73px;
-      overflow-x: hidden;
-      overflow-y: auto;
-      position: relative;
-      z-index: 1;
-      direction: rtl;
-      unicode-bidi: isolate;
-      display: block;
-      background: rgb(250, 250, 250);
-      color: rgba(0, 0, 0, 0.87);
-      font-family: Roboto, "Open Sans Hebrew", "Helvetica Neue", sans-serif, Arial;
-    }
-
-    .topbar {
-      height: 148px;
-      padding: 0 clamp(28px, 5vw, 74px);
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      background: rgb(14, 103, 52);
-      color: white;
-      box-shadow: 0 2px 4px #0003;
-    }
-
-    .topbar p {
-      margin: 0;
-      font-size: clamp(31px, 5vw, 51px);
-      font-weight: 400;
-    }
-
-    button {
-      font: inherit;
-      border: 0;
-      color: inherit;
-      cursor: pointer;
-      background: transparent;
-    }
-
-    .menu-button {
-      display: grid;
-      gap: 7px;
-      width: 50px;
-      padding: 8px 0;
-    }
-
-    .menu-button span {
-      display: block;
-      height: 6px;
-      border-radius: 99px;
-      background: white;
-    }
-
-    .top-actions {
-      direction: ltr;
-      flex-direction: row;
-      display: flex;
-      align-items: center;
-      gap: 27px;
-      font-size: 46px;
-    }
-
-    .icon-button {
-      display: grid;
-      place-items: center;
-      width: 53px;
-      height: 53px;
-      padding: 0;
-      border: 0;
-    }
-
-    .icon-button svg {
-      display: block;
-      width: 100%;
-      height: 100%;
-      fill: white;
-    }
-
-    .bell {
-      width: 47px;
-      height: 52px;
-      padding: 0;
-    }
-
-    .bell svg {
-      width: 100%;
-      height: 100%;
-      fill: currentColor;
-    }
-
-    .back {
-      font-size: 69px;
-      line-height: 0.7;
-    }
-
-    main {
-      padding: 66px clamp(26px, 5vw, 74px);
-      max-width: 1130px;
-      margin: auto;
-    }
-
-    h1 {
-      margin: 0 0 30px;
-      text-align: right;
-      font-size: clamp(56px, 9vw, 77px);
-      font-weight: 500;
-      line-height: 1;
-    }
-
-    .panel {
-      min-height: 735px;
-      padding: 26px;
-      border: 1px solid #dedede;
-      border-radius: 10px;
-      box-shadow: 0 3px 12px #0002;
-    }
-
-    .controls {
-      padding: 29px 27px 17px;
-      border: 2px solid #ddd;
-      border-radius: 11px;
-      font-size: clamp(24px, 4vw, 37px);
-      line-height: 1.9;
-    }
-
-    .toggle-row {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 16px;
-    }
-
-    .switch {
-      position: relative;
-      width: 92px;
-      height: 44px;
-      flex: 0 0 auto;
-      border-radius: 99px;
-      background: #ddd;
-      direction: ltr;
-      transition: background-color 160ms ease;
-    }
-
-    .switch input {
-      appearance: none;
-      position: absolute;
-      inset: 0;
-      margin: 0;
-      cursor: pointer;
-    }
-
-    .switch i {
-      display: grid;
-      place-items: center;
-      pointer-events: none;
-      position: absolute;
-      width: 52px;
-      height: 52px;
-      top: -4px;
-      right: -1px;
-      border-radius: 50%;
-      background: #878787;
-      box-shadow: 0 2px 4px #0004;
-      transition: right 160ms ease, left 160ms ease, background-color 160ms ease;
-    }
-
-    .switch-icon {
-      width: 29px;
-      height: 29px;
-      fill: white;
-    }
-
-    .switch-icon--on {
-      display: none;
-    }
-
-    .switch.off {
-      background: #ddd;
-    }
-
-    .switch.off i {
-      right: -1px;
-      left: auto;
-      background: #878787;
-    }
-
-    .switch:has(input:not(:checked)) {
-      background: #ddd;
-    }
-
-    .switch:has(input:not(:checked)) i {
-      right: -1px;
-      left: auto;
-      background: #878787;
-    }
-
-    .switch:has(input:checked) {
-      background: #7589dc;
-    }
-
-    .switch:has(input:checked) i {
-      right: auto;
-      left: 0;
-      background: #4358bc;
-    }
-
-    .switch:has(input:checked) .switch-icon--off {
-      display: none;
-    }
-
-    .switch:has(input:checked) .switch-icon--on {
-      display: block;
-    }
-
-    .release-card {
-      margin: 0 38px;
-      padding: 20px 0 0;
-      background: #f8f8f8;
-      box-shadow: 0 7px 13px #0004;
-    }
-
-    h2 {
-      margin: 0 0 36px;
-      text-align: center;
-      font-size: clamp(36px, 6vw, 59px);
-      font-weight: 600;
-    }
-
-    .table-head,
-    .release-row {
-      display: grid;
-      grid-template-columns: 1.6fr 1.05fr 1.2fr 0.55fr;
-      align-items: center;
-      text-align: center;
-    }
-
-    .table-head {
-      padding: 0 25px 17px;
-      font-size: clamp(23px, 3.7vw, 38px);
-      line-height: 1.25;
-      color: #333;
-    }
-
-    .release-row {
-      display: flex;
-      flex-direction: row;
-      direction: ltr;
-      align-items: center;
-      justify-content: space-around;
-      min-height: 164px;
-      padding: 12px 22px;
-      background: #f4f4f4;
-      border-top: 1px solid #eee;
-      box-shadow: 0 -6px 14px #0000000c;
-      font-size: clamp(25px, 3.8vw, 39px);
-      color: #777;
-    }
-
-    .release-row time {
-      direction: ltr;
-      white-space: nowrap;
-    }
-
-    .release-row .release-actions {
-      order: 1;
-    }
-
-    .release-row .status {
-      order: 2;
-    }
-
-    .release-row #rounded-time {
-      order: 3;
-    }
-
-    .release-row #today {
-      order: 4;
-    }
-
-    .release-expand {
-      order: 5;
-      display: grid;
-      place-items: center;
-      align-self: center;
-      flex: 0 0 64px;
-      width: 64px;
-      height: 64px;
-      margin: 0;
-      padding: 0;
-      color: #777;
-      border-radius: 50%;
-      line-height: 0;
-    }
-
-    .release-expand span {
-      display: grid;
-      place-items: center;
-      width: 100%;
-      height: 100%;
-      line-height: 0;
-      pointer-events: none;
-    }
-
-    .release-expand .release-chevron {
-      display: block;
-      width: 48px;
-      height: 48px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      transform-origin: center;
-    }
-
-    .release-expand[aria-expanded="true"] .release-chevron {
-      width: 40px;
-      height: 40px;
-      transform: rotate(180deg);
-    }
-
-    .release-expand:hover,
-    .release-expand:focus-visible {
-      background: #0000000a;
-    }
-
-    .release-details[hidden] {
-      display: none;
-    }
-
-    .release-details {
-      padding: 0 28px 20px;
-      background: #f4f4f4;
-      text-align: right;
-      color: #222;
-      font-size: clamp(20px, 3vw, 30px);
-      line-height: 1.4;
-      overflow-wrap: anywhere;
-    }
-
-    .release-details p {
-      margin: 0;
-    }
-
-    .release-details strong {
-      font-weight: 700;
-    }
-
-    .release-card:has(.release-expand[aria-expanded="true"]) .release-row {
-      padding-bottom: 0;
-    }
-
-    .status {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 142px;
-      padding: 16px 17px;
-      border-radius: 38px;
-      background: #dcefd4;
-      color: #71816b;
-    }
-
-    .more {
-      display: grid;
-      place-items: center;
-      width: 56px;
-      height: 64px;
-      padding: 0;
-      border-radius: 50%;
-      color: #777;
-      font-family: Arial, sans-serif;
-      font-size: 72px;
-      line-height: 1;
-      flex-shrink: 0;
-    }
-
-    .more span {
-      display: block;
-      pointer-events: none;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: currentColor;
-      box-shadow: 0 -16px 0 currentColor, 0 16px 0 currentColor;
-      font-size: 0;
-      line-height: 0;
-    }
-
-    .more:hover,
-    .more:focus-visible {
-      background: #0000000a;
-    }
-
-    .release-actions {
-      position: relative;
-    }
-
-    .release-menu[hidden] {
-      display: none;
-    }
-
-    .release-menu {
-      position: fixed;
-      z-index: 1000;
-      min-width: 240px;
-      border-radius: 8px;
-      background: white;
-      box-shadow: 0 5px 5px -3px #0003, 0 8px 10px 1px #00000024,
-        0 3px 14px 2px #0000001f;
-    }
-
-    .release-menu-item {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      min-height: 76px;
-      padding: 0 20px;
-      color: #333;
-      font-size: 24px;
-      line-height: 1.5;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .release-menu-item svg {
-      width: 30px;
-      height: 30px;
-      flex: 0 0 auto;
-      fill: #222;
-    }
-
-    .release-menu-item:hover,
-    .release-menu-item:focus-visible {
-      background: #f5f5f5;
-    }
-
-    body.approval-open {
-      overflow: hidden;
-    }
-
-    .approval-dialog {
-      width: min(640px, calc(100vw - 24px));
-      height: min(760px, calc(100dvh - 24px));
-      max-width: none;
-      max-height: calc(100dvh - 24px);
-      margin: auto;
-      padding: 0;
-      border: 0;
-      border-radius: 4px;
-      background: white;
-      color: #111;
-      box-shadow: 0 12px 32px #0005;
-      overflow: auto;
-    }
-
-    .approval-dialog::backdrop {
-      background: #0005;
-    }
-
-    .approval-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 68px;
-      padding: 0 26px 0 16px;
-      background: rgb(14, 103, 52);
-      color: white;
-    }
-
-    .approval-header h2 {
-      margin: 0;
-      font-size: 21px;
-      font-weight: 500;
-      line-height: 1.4;
-      text-align: right;
-    }
-
-    .approval-close {
-      display: grid;
-      place-items: center;
-      width: 48px;
-      height: 48px;
-      padding: 12px;
-      border-radius: 50%;
-      color: white;
-    }
-
-    .approval-close svg {
-      width: 24px;
-      height: 24px;
-      fill: currentColor;
-    }
-
-    .approval-close:hover {
-      background: #ffffff1a;
-    }
-
-    .approval-close:focus-visible {
-      outline: 2px solid white;
-      outline-offset: -4px;
-    }
-
-    .approval-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      padding: 20px 24px 24px;
-      text-align: center;
-      font-size: 17px;
-      line-height: 1.5;
-    }
-
-    .approval-content p {
-      margin: 0;
-    }
-
-    .approval-accepted-icon {
-      display: block;
-      width: 108px;
-      height: 108px;
-      flex: 0 0 auto;
-      fill: #49a30b;
-    }
-
-    .approval-accepted-card {
-      width: min(264px, 100%);
-      padding: 12px;
-      border-radius: 22px;
-      background: #dff0d5;
-    }
-
-    .approval-portrait {
-      display: grid;
-      place-items: center;
-      width: 168px;
-      max-width: 100%;
-      height: 188px;
-      margin-inline: auto;
-      padding: 0;
-      border-radius: 4px;
-      background: white;
-      box-shadow: 0 2px 3px #0003;
-    }
-
-    .approval-portrait svg {
-      display: block;
-      width: 200px;
-      height: 200px;
-      max-width: none;
-    }
-
-    .approval-portrait svg path {
-      transform-box: view-box;
-      transform-origin: center;
-      transform: scaleX(0.88);
-    }
-
-    .approval-status {
-      padding: 12px 0 0;
-      color: #111;
-      font-size: 21px;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-
-    .approval-refresh {
-      display: grid;
-      place-items: center;
-      width: 84px;
-      height: 44px;
-      margin-top: 42px;
-      padding: 10px;
-      border-radius: 999px;
-      background: rgb(14, 103, 52);
-      color: white;
-      box-shadow: 0 2px 4px #0004;
-    }
-
-    .approval-refresh svg {
-      width: 26px;
-      height: 26px;
-      fill: currentColor;
-    }
-
-    .approval-refresh:hover {
-      background: #0a542a;
-    }
-
-    .approval-refresh:focus-visible {
-      outline: 3px solid #49a30b;
-      outline-offset: 3px;
-    }
-
-    .visually-hidden {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip-path: inset(50%);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    body.sidebar-open {
-      overflow: hidden;
-    }
-
-    .main-sidebar {
-      position: fixed;
-      inset: 0 0 0 auto;
-      width: min(340px, 90vw);
-      height: 100dvh;
-      max-width: none;
-      max-height: none;
-      margin: 0;
-      padding: 0;
-      border: 0;
-      background: white;
-      color: #333;
-      overflow-y: auto;
-      box-shadow: -5px 0 20px #0003;
-    }
-
-    .main-sidebar::backdrop {
-      background: #0006;
-    }
-
-    .sidebar-header {
-      position: relative;
-      padding: 24px 38px 18px;
-      background: rgb(14, 103, 52);
-      color: white;
-      text-align: center;
-    }
-
-    .sidebar-header h2 {
-      margin: 0 0 10px;
-      font-size: 19px;
-      line-height: 1.5;
-    }
-
-    .sidebar-header p {
-      margin: 4px 0;
-      font-size: 14px;
-    }
-
-    .sidebar-close {
-      position: absolute;
-      top: 4px;
-      left: 4px;
-      width: 36px;
-      height: 36px;
-      font-size: 28px;
-    }
-
-    .sidebar-student {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 18px;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .sidebar-student svg {
-      width: 76px;
-      height: 84px;
-      background: #f5f5f5;
-      border-radius: 4px;
-    }
-
-    .sidebar-student > div {
-      flex: 1;
-    }
-
-    .sidebar-student p {
-      margin: 6px 0;
-      padding: 8px;
-      text-align: center;
-      background: #f5f5f5;
-      border-radius: 4px;
-    }
-
-    .sidebar-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      min-height: 46px;
-      padding: 10px 22px;
-      text-align: right;
-      font-size: 16px;
-    }
-
-    .sidebar-item[aria-disabled="true"] {
-      cursor: default;
-    }
-
-    .sidebar-item:hover {
-      background: #f3f3f3;
-    }
-
-    .sidebar-item[aria-current="page"] {
-      background: #e5f1e8;
-      color: #0e6734;
-      font-weight: 700;
-    }
-
-    .sidebar-badge {
-      padding: 2px 8px;
-      border-radius: 10px;
-      background: #0e6734;
-      color: white;
-      font-size: 12px;
-    }
-
-    #sidebar-navigation details summary {
-      padding: 14px 22px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    #sidebar-navigation details .sidebar-item {
-      padding-right: 40px;
-      background: #fafafa;
-      font-size: 14px;
-    }
-
-    .sidebar-footer {
-      padding: 20px 12px;
-      border-top: 1px solid #ddd;
-      text-align: center;
-      font-size: 12px;
-      color: #666;
-    }
-
-    .sidebar-footer p {
-      margin: 6px 0;
-    }
-
-    @media (max-width: 600px) {
-      .topbar {
-        height: 92px;
-        padding: 0 20px;
-      }
-
-      .top-actions {
-        gap: 15px;
-        font-size: 28px;
-      }
-
-      .menu-button {
-        width: 35px;
-        gap: 5px;
-      }
-
-      .menu-button span {
-        height: 4px;
-      }
-
-      .topbar p {
-        font-size: 25px;
-      }
-
-      .icon-button {
-        width: 35px;
-        height: 35px;
-      }
-
-      .bell {
-        width: 32px;
-        height: 36px;
-      }
-
-      .back {
-        font-size: 46px;
-      }
-
-      main {
-        padding: 38px 16px;
-      }
-
-      .panel {
-        min-height: 0;
-        padding: 14px;
-      }
-
-      .controls {
-        padding: 17px 12px;
-      }
-
-      .switch {
-        width: 64px;
-        height: 31px;
-      }
-
-      .switch i {
-        width: 37px;
-        height: 37px;
-        top: -3px;
-      }
-
-      .switch-icon {
-        width: 22px;
-        height: 22px;
-      }
-
-      .release-card {
-        margin: 0 8px;
-      }
-
-      .release-row {
-        min-height: 105px;
-        padding: 8px;
-        gap: 4px;
-        font-size: clamp(16px, 4vw, 24px);
-      }
-
-      .release-expand {
-        flex-basis: 44px;
-        width: 44px;
-        height: 48px;
-        padding: 0;
-      }
-
-      .release-expand .release-chevron {
-        width: 38px;
-        height: 38px;
-      }
-
-      .release-expand[aria-expanded="true"] .release-chevron {
-        width: 30px;
-        height: 30px;
-      }
-
-      .release-details {
-        padding: 0 16px 18px;
-        font-size: clamp(18px, 4vw, 26px);
-      }
-
-      .release-row .more {
-        width: 40px;
-      }
-
-      .status {
-        min-height: 80px;
-        padding: 12px 10px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <header class="topbar">
-    <button
-      type="button"
-      class="menu-button"
-      aria-label="פתיחת תפריט"
-      aria-haspopup="dialog"
-      aria-expanded="false"
-      aria-controls="main-sidebar"
-    >
-      <span></span><span></span><span></span>
-    </button>
-
-    <p>משו״ב - שחרורית</p>
-
-    <div class="top-actions" aria-label="פעולות">
-      <button aria-label="חזרה" class="back">‹</button>
-
-      <button aria-label="התראות" class="bell">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M18 16v-5a6 6 0 0 0-4.5-5.8V4a1.5 1.5 0 0 0-3 0v1.2A6 6 0 0 0 6 11v5l-2 2h16l-2-2Zm-6 6a2.2 2.2 0 0 0 2.1-2.1H9.9A2.2 2.2 0 0 0 12 22Z" />
-        </svg>
-      </button>
-
-      <button aria-label="עזרה" class="icon-button">
-        <svg viewBox="0 0 24 24" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false" aria-hidden="true">
-          <circle cx="12" cy="12" r="10" fill="rgb(14, 103, 52)" />
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z" />
-        </svg>
-      </button>
-    </div>
-  </header>
-
-  <main>
-    <h1>שחרורית</h1>
-
-    <section class="panel" aria-labelledby="sent-title">
-      <div class="controls">
-        <label class="toggle-row">
-          <span class="switch off">
-            <input type="checkbox" aria-label="הצגת בקשות שפג תוקפן" />
-            <i aria-hidden="true">
-              <svg class="switch-icon switch-icon--off" viewBox="0 0 24 24">
-                <path d="M20 13H4v-2h16v2z" />
-              </svg>
-              <svg class="switch-icon switch-icon--on" viewBox="0 0 24 24">
-                <path d="m9 16.17-4.17-4.18L3.41 13.4 9 19l12-12-1.41-1.41z" />
-              </svg>
-            </i>
-          </span>
-          הצגת בקשות שפג תוקפן
-        </label>
-
-        <label class="toggle-row">
-          <span class="switch">
-            <input type="checkbox" checked aria-label="סידור בקשות מהחדש לישן" />
-            <i aria-hidden="true">
-              <svg class="switch-icon switch-icon--off" viewBox="0 0 24 24">
-                <path d="M20 13H4v-2h16v2z" />
-              </svg>
-              <svg class="switch-icon switch-icon--on" viewBox="0 0 24 24">
-                <path d="m9 16.17-4.17-4.18L3.41 13.4 9 19l12-12-1.41-1.41z" />
-              </svg>
-            </i>
-          </span>
-          סידור בקשות מהחדש לישן
-        </label>
-      </div>
-
-      <article class="release-card">
-        <h2 id="sent-title">בקשות שחרור שנשלחו</h2>
-
-        <div class="table-head">
-          <span>תאריך<br />שחרור</span>
-          <span>שעות</span>
-          <span>סטטוס</span>
-          <span aria-hidden="true"></span>
-        </div>
-
-        <div class="release-row">
-          <div class="release-actions">
-            <button
-              type="button"
-              class="more"
-              aria-label="פעולות נוספות"
-              aria-haspopup="menu"
-              aria-expanded="false"
-              aria-controls="release-menu"
-            >
-              <span aria-hidden="true">⋮</span>
-            </button>
-
-            <div
-              id="release-menu"
-              class="release-menu"
-              role="menu"
-              aria-label="פעולות נוספות"
-              dir="rtl"
-              hidden
-            >
-              <button type="button" class="release-menu-item" role="menuitem" tabindex="-1">
-                <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                  <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
-                </svg>
-                <span>הצגת אישור</span>
-              </button>
-            </div>
-          </div>
-
-          <span class="status">התקבל</span>
-          <time id="rounded-time">22:00</time>
-          <time id="today">14/09/26</time>
-
-          <button
-            type="button"
-            class="release-expand"
-            aria-label="הצגת פרטי הבקשה"
-            aria-expanded="false"
-            aria-controls="release-details"
-          >
-            <span aria-hidden="true">
-              <svg
-                class="release-chevron"
-                viewBox="0 0 24 24"
-                focusable="false"
-                aria-hidden="true"
-              >
-                <path d="M6 9 L12 15 L18 9" />
-              </svg>
-            </span>
-          </button>
-        </div>
-
-        <div id="release-details" class="release-details" dir="rtl" hidden>
-          <p><strong>הערה:</strong> מאושר</p>
-          <p><strong>שם מורה משחרר:</strong> אפרת גבריאל ספיר</p>
-        </div>
-      </article>
-    </section>
-  </main>
-
-  <dialog
-    id="approval-dialog"
-    class="approval-dialog"
-    dir="rtl"
-    aria-labelledby="approval-title"
-    aria-describedby="approval-description approval-status"
-  >
-    <header class="approval-header">
-      <h2 id="approval-title">אלון לביא</h2>
-
-      <button type="button" class="approval-close" aria-label="סגירה" autofocus>
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-        </svg>
-      </button>
-    </header>
-
-    <div class="approval-content">
-      <p id="approval-description">
-        בקשתך לשחרור לתאריך
-        <bdi id="approval-date"></bdi>
-        בשעה
-        <bdi id="approval-time"></bdi>
-      </p>
-
-      <svg class="approval-accepted-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="m21.29 4.71-10 10a1 1 0 0 1-1.42 0l-4-4 1.42-1.42L10.58 12.58 19.87 3.29zM20 12a8 8 0 1 1-4.07-6.97l1.46-1.46A10 10 0 1 0 21.65 9.38L20 11.03V12z" />
-      </svg>
-
-      <div class="approval-accepted-card">
-        <div class="approval-portrait">
-          <svg viewBox="0 0 200 200" role="img" aria-label="תמונת פרופיל כללית" focusable="false">
-            <path fill="#888" d="M20 190V134C29 127 46 123 65 114L72 104V89C65 85 62 76 62 69C58 64 60 57 63 55V39C63 16 83 7 103 8C129 8 147 21 147 43L145 57C150 63 146 75 141 79L135 94V108L146 116C161 123 174 127 180 132V190Z" />
-          </svg>
-        </div>
-
-        <p id="approval-status" class="approval-status">הבקשה התקבלה</p>
-      </div>
-
-      <button type="button" class="approval-refresh" aria-label="רענון האישור">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M17.65 6.35A7.95 7.95 0 0 0 12 4a8 8 0 1 0 7.93 9h-2.02A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z" />
-        </svg>
-      </button>
-
-      <span id="approval-refresh-feedback" class="visually-hidden" role="status"></span>
-    </div>
-  </dialog>
-
-  <dialog id="main-sidebar" class="main-sidebar" dir="rtl" aria-labelledby="sidebar-title">
-    <header class="sidebar-header">
-      <button type="button" class="sidebar-close" aria-label="סגירת תפריט" autofocus>×</button>
-      <h2 id="sidebar-title">שלום לביא אלון יב3</h2>
-      <p>תיכון השקמים - הוד השרון</p>
-      <p>תשפ״ז</p>
-    </header>
-
-    <div class="sidebar-student">
-      <svg viewBox="0 0 200 200" role="img" aria-label="תמונת פרופיל כללית">
-        <path fill="#888" d="M20 190V134C29 127 46 123 65 114L72 104V89C65 85 62 76 62 69C58 64 60 57 63 55V39C63 16 83 7 103 8C129 8 147 21 147 43L145 57C150 63 146 75 141 79L135 94V108L146 116C161 123 174 127 180 132V190Z" />
-      </svg>
-      <div>
-        <p>אלון</p>
-        <p>כל השנה</p>
-      </div>
-    </div>
-
-    <nav id="sidebar-navigation" aria-label="תפריט ראשי"></nav>
-
-    <footer class="sidebar-footer">
-      <p>עברית | العربية | English | Українська | Русский</p>
-      <p>גרסה: 3.20210425</p>
-      <p>משו״ב תלמידים והורים</p>
-      <p>© 2026 - משו״ב</p>
-    </footer>
-  </dialog>
-
-  <script>
-    (() => {
-      function updateReleaseTimestamp() {
-        const now = new Date();
-        const rounded = new Date(now);
-        rounded.setMinutes(Math.floor(now.getMinutes() / 30) * 30, 0, 0);
-
-        document.querySelector('#today').textContent =
-          new Intl.DateTimeFormat('en-GB', {
-            day: '2-digit',
-            month: '2-digit',
-            year: '2-digit'
-          }).format(now);
-
-        document.querySelector('#rounded-time').textContent =
-          new Intl.DateTimeFormat('en-GB', {
-            hour: '2-digit',
-            minute: '2-digit',
-            hourCycle: 'h23'
-          }).format(rounded);
-      }
-
-      updateReleaseTimestamp();
-      setInterval(updateReleaseTimestamp, 1000);
-
-      const trigger = document.querySelector('.more');
-      const menu = document.querySelector('#release-menu');
-      const item = menu.querySelector('[role="menuitem"]');
-      const expandButton = document.querySelector('.release-expand');
-      const releaseDetails = document.querySelector('#release-details');
-
-      function setDetailsExpanded(expanded) {
-        releaseDetails.hidden = !expanded;
-        expandButton.setAttribute('aria-expanded', String(expanded));
-
-        expandButton.setAttribute(
-          'aria-label',
-          expanded ? 'הסתרת פרטי הבקשה' : 'הצגת פרטי הבקשה'
-        );
-      }
-
-      expandButton.addEventListener('click', () => {
-        setDetailsExpanded(releaseDetails.hidden);
-      });
-
-      document.body.appendChild(menu);
-
-      function positionMenu() {
-        const rect = trigger.getBoundingClientRect();
-        const gap = 4;
-        const margin = 8;
-        const width = menu.offsetWidth;
-        const height = menu.offsetHeight;
-
-        const left = Math.max(
-          margin,
-          Math.min(rect.left, window.innerWidth - width - margin)
-        );
-
-        let top = rect.bottom + gap;
-
-        if (top + height > window.innerHeight - margin) {
-          top = rect.top - height - gap;
-        }
-
-        menu.style.left = `${left}px`;
-        menu.style.top = `${Math.max(margin, top)}px`;
-      }
-
-      function closeMenu(restoreFocus = false) {
-        menu.hidden = true;
-        trigger.setAttribute('aria-expanded', 'false');
-        if (restoreFocus) trigger.focus();
-      }
-
-      function openMenu() {
-        setDetailsExpanded(true);
-        menu.hidden = false;
-        trigger.setAttribute('aria-expanded', 'true');
-        positionMenu();
-        item.focus({ preventScroll: true });
-      }
-
-      trigger.addEventListener('click', () => {
-        if (menu.hidden) openMenu();
-        else closeMenu(true);
-      });
-
-      trigger.addEventListener('keydown', (event) => {
-        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-          event.preventDefault();
-          openMenu();
-        }
-      });
-
-      document.addEventListener('click', (event) => {
-        if (!trigger.contains(event.target) && !menu.contains(event.target)) {
-          closeMenu();
-        }
-      });
-
-      document.addEventListener('keydown', (event) => {
-        if (!menu.hidden && event.key === 'Escape') {
-          event.preventDefault();
-          closeMenu(true);
-        }
-      });
-
-      menu.addEventListener('keydown', (event) => {
-        if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
-          event.preventDefault();
-          item.focus();
-        }
-      });
-
-      document.addEventListener('focusin', (event) => {
-        if (!trigger.contains(event.target) && !menu.contains(event.target)) {
-          closeMenu();
-        }
-      });
-
-      window.addEventListener('resize', () => {
-        if (!menu.hidden) positionMenu();
-      });
-
-      window.addEventListener('scroll', () => {
-        if (!menu.hidden) positionMenu();
-      }, true);
-
-      const approvalDialog = document.querySelector('#approval-dialog');
-      const approvalClose = approvalDialog.querySelector('.approval-close');
-
-      function syncApprovalTimestamp() {
-        updateReleaseTimestamp();
-
-        document.querySelector('#approval-date').textContent =
-          document.querySelector('#today').textContent;
-
-        document.querySelector('#approval-time').textContent =
-          document.querySelector('#rounded-time').textContent;
-      }
-
-      approvalDialog.querySelector('.approval-refresh').addEventListener('click', () => {
-        syncApprovalTimestamp();
-        document.querySelector('#approval-refresh-feedback').textContent =
-          'התאריך והשעה עודכנו: ' + new Date().toLocaleTimeString('he-IL');
-      });
-
-      item.addEventListener('click', () => {
-        closeMenu();
-        syncApprovalTimestamp();
-        approvalDialog.showModal();
-        document.body.classList.add('approval-open');
-      });
-
-      approvalClose.addEventListener('click', () => approvalDialog.close());
-
-      approvalDialog.addEventListener('click', (event) => {
-        if (event.target !== approvalDialog) return;
-
-        const rect = approvalDialog.getBoundingClientRect();
-        if (
-          event.clientX < rect.left ||
-          event.clientX > rect.right ||
-          event.clientY < rect.top ||
-          event.clientY > rect.bottom
-        ) {
-          approvalDialog.close();
-        }
-      });
-
-      approvalDialog.addEventListener('close', () => {
-        document.body.classList.remove('approval-open');
-        trigger.focus({ preventScroll: true });
-      });
-
-      const sidebar = document.querySelector('#main-sidebar');
-      const hamburger = document.querySelector('.menu-button');
-      const navigation = document.querySelector('#sidebar-navigation');
-      const sidebarClose = sidebar.querySelector('.sidebar-close');
-
-      const sidebarItems = [
-        'לוח מידע',
-        'קוד לזיהוי',
-        'שחרורית',
-        {
-          label: 'לימודים',
-          children: ['מערכת שעות', 'שיעורי בית', 'ציונים והערכות', 'אירועי שיעור']
-        },
-        'הודעות',
-        'אישורים וטפסים',
-        'הגדרות'
-      ];
-
-      function renderSidebar() {
-        navigation.innerHTML = '';
-        sidebarItems.forEach((item) => {
-          if (typeof item === 'string') {
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'sidebar-item';
-            btn.textContent = item;
-            if (item === 'שחרורית') {
-              btn.setAttribute('aria-current', 'page');
-            }
-            navigation.appendChild(btn);
-          } else if (item.label && item.children) {
-            const details = document.createElement('details');
-            const summary = document.createElement('summary');
-            summary.textContent = item.label;
-            details.appendChild(summary);
-
-            item.children.forEach((child) => {
-              const subBtn = document.createElement('button');
-              subBtn.type = 'button';
-              subBtn.className = 'sidebar-item';
-              subBtn.textContent = child;
-              details.appendChild(subBtn);
-            });
-
-            navigation.appendChild(details);
-          }
-        });
-      }
-
-      renderSidebar();
-
-      function openSidebar() {
-        sidebar.showModal();
-        hamburger.setAttribute('aria-expanded', 'true');
-        document.body.classList.add('sidebar-open');
-      }
-
-      function closeSidebar() {
-        sidebar.close();
-        hamburger.setAttribute('aria-expanded', 'false');
-        document.body.classList.remove('sidebar-open');
-      }
-
-      hamburger.addEventListener('click', openSidebar);
-      sidebarClose.addEventListener('click', closeSidebar);
-
-      sidebar.addEventListener('click', (event) => {
-        if (event.target === sidebar) closeSidebar();
-      });
-
-      sidebar.addEventListener('close', () => {
-        document.body.classList.remove('sidebar-open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        hamburger.focus();
-      });
-    })();
-  </script>
-</body>
-</html>
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 1082.73px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+  direction: rtl;
+  unicode-bidi: isolate;
+  display: block;
+  background: rgb(250, 250, 250);
+  color: rgba(0, 0, 0, 0.87);
+  font-family: Roboto, "Open Sans Hebrew", "Helvetica Neue", sans-serif, Arial;
+}
+
+.topbar {
+  height: 148px;
+  padding: 0 clamp(28px, 5vw, 74px);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: rgb(14, 103, 52);
+  color: white;
+  box-shadow: 0 2px 4px #0003;
+}
+
+.topbar p {
+  margin: 0;
+  font-size: clamp(31px, 5vw, 51px);
+  font-weight: 400;
+}
+
+button {
+  font: inherit;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+}
+
+.menu-button {
+  display: grid;
+  gap: 7px;
+  width: 50px;
+  padding: 8px 0;
+}
+
+.menu-button span {
+  display: block;
+  height: 6px;
+  border-radius: 99px;
+  background: white;
+}
+
+.top-actions {
+  direction: ltr;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  gap: 27px;
+  font-size: 46px;
+}
+
+.icon-button {
+  display: grid;
+  place-items: center;
+  width: 53px;
+  height: 53px;
+  padding: 0;
+  border: 0;
+}
+
+.icon-button svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: white;
+}
+
+.bell {
+  width: 47px;
+  height: 52px;
+  padding: 0;
+}
+
+.bell svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.back {
+  font-size: 69px;
+  line-height: 0.7;
+}
+
+main {
+  padding: 66px clamp(26px, 5vw, 74px);
+  max-width: 1130px;
+  margin: auto;
+}
+
+h1 {
+  margin: 0 0 30px;
+  text-align: right;
+  font-size: clamp(56px, 9vw, 77px);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.panel {
+  min-height: 735px;
+  padding: 26px;
+  border: 1px solid #dedede;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px #0002;
+}
+
+.controls {
+  padding: 29px 27px 17px;
+  border: 2px solid #ddd;
+  border-radius: 11px;
+  font-size: clamp(24px, 4vw, 37px);
+  line-height: 1.9;
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+}
+
+.switch {
+  position: relative;
+  width: 92px;
+  height: 44px;
+  flex: 0 0 auto;
+  border-radius: 99px;
+  background: #ddd;
+  direction: ltr;
+  transition: background-color 160ms ease;
+}
+
+.switch input {
+  appearance: none;
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.switch i {
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  top: -4px;
+  right: -1px;
+  border-radius: 50%;
+  background: #878787;
+  box-shadow: 0 2px 4px #0004;
+  transition: right 160ms ease, left 160ms ease, background-color 160ms ease;
+}
+
+.switch-icon {
+  width: 29px;
+  height: 29px;
+  fill: white;
+}
+
+.switch-icon--on {
+  display: none;
+}
+
+.switch.off {
+  background: #ddd;
+}
+
+.switch.off i {
+  right: -1px;
+  left: auto;
+  background: #878787;
+}
+
+.switch:has(input:not(:checked)) {
+  background: #ddd;
+}
+
+.switch:has(input:not(:checked)) i {
+  right: -1px;
+  left: auto;
+  background: #878787;
+}
+
+.switch:has(input:checked) {
+  background: #7589dc;
+}
+
+.switch:has(input:checked) i {
+  right: auto;
+  left: 0;
+  background: #4358bc;
+}
+
+.switch:has(input:checked) .switch-icon--off {
+  display: none;
+}
+
+.switch:has(input:checked) .switch-icon--on {
+  display: block;
+}
+
+.release-card {
+  margin: 0 38px;
+  padding: 20px 0 0;
+  background: #f8f8f8;
+  box-shadow: 0 7px 13px #0004;
+}
+
+h2 {
+  margin: 0 0 36px;
+  text-align: center;
+  font-size: clamp(36px, 6vw, 59px);
+  font-weight: 600;
+}
+
+.table-head,
+.release-row {
+  display: grid;
+  grid-template-columns: 1.6fr 1.05fr 1.2fr 0.55fr;
+  align-items: center;
+  text-align: center;
+}
+
+.table-head {
+  padding: 0 25px 17px;
+  font-size: clamp(23px, 3.7vw, 38px);
+  line-height: 1.25;
+  color: #333;
+}
+
+.release-row {
+  display: flex;
+  flex-direction: row;
+  direction: ltr;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 164px;
+  padding: 12px 22px;
+  background: #f4f4f4;
+  border-top: 1px solid #eee;
+  box-shadow: 0 -6px 14px #0000000c;
+  font-size: clamp(25px, 3.8vw, 39px);
+  color: #777;
+}
+
+.release-row time {
+  direction: ltr;
+  white-space: nowrap;
+}
+
+.release-row .release-actions {
+  order: 1;
+}
+
+.release-row .status {
+  order: 2;
+}
+
+.release-row #rounded-time {
+  order: 3;
+}
+
+.release-row #today {
+  order: 4;
+}
+
+.release-expand {
+  order: 5;
+  display: grid;
+  place-items: center;
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  color: #777;
+  border-radius: 50%;
+}
+
+.release-expand span {
+  display: block;
+  font-family: Arial, sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+  transform: translateY(-3px);
+}
+
+.release-expand:hover,
+.release-expand:focus-visible {
+  background: #0000000a;
+}
+
+.release-details[hidden] {
+  display: none;
+}
+
+.release-details {
+  padding: 0 28px 20px;
+  background: #f4f4f4;
+  text-align: right;
+  color: #222;
+  font-size: clamp(20px, 3vw, 30px);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.release-details p {
+  margin: 0;
+}
+
+.release-details strong {
+  font-weight: 700;
+}
+
+.release-card:has(.release-expand[aria-expanded="true"]) .release-row {
+  padding-bottom: 0;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 142px;
+  padding: 16px 17px;
+  border-radius: 38px;
+  background: #dcefd4;
+  color: #71816b;
+}
+
+.more {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 64px;
+  padding: 0;
+  border-radius: 50%;
+  color: #777;
+  font-family: Arial, sans-serif;
+  font-size: 72px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.more span {
+  display: block;
+  pointer-events: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 -16px 0 currentColor, 0 16px 0 currentColor;
+  font-size: 0;
+  line-height: 0;
+}
+
+.more:hover,
+.more:focus-visible {
+  background: #0000000a;
+}
+
+.release-actions {
+  position: relative;
+}
+
+.release-menu[hidden] {
+  display: none;
+}
+
+.release-menu {
+  position: fixed;
+  z-index: 1000;
+  min-width: 240px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 5px 5px -3px #0003, 0 8px 10px 1px #00000024,
+    0 3px 14px 2px #0000001f;
+}
+
+.release-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 76px;
+  padding: 0 20px;
+  color: #333;
+  font-size: 24px;
+  line-height: 1.5;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.release-menu-item svg {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  fill: #222;
+}
+
+.release-menu-item:hover,
+.release-menu-item:focus-visible {
+  background: #f5f5f5;
+}
+
+body.approval-open {
+  overflow: hidden;
+}
+
+.approval-dialog {
+  width: min(640px, calc(100vw - 24px));
+  height: min(760px, calc(100dvh - 24px));
+  max-width: none;
+  max-height: calc(100dvh - 24px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: white;
+  color: #111;
+  box-shadow: 0 12px 32px #0005;
+  overflow: auto;
+}
+
+.approval-dialog::backdrop {
+  background: #0005;
+}
+
+.approval-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 68px;
+  padding: 0 26px 0 16px;
+  background: rgb(14, 103, 52);
+  color: white;
+}
+
+.approval-header h2 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: right;
+}
+
+.approval-close {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  border-radius: 50%;
+  color: white;
+}
+
+.approval-close svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.approval-close:hover {
+  background: #ffffff1a;
+}
+
+.approval-close:focus-visible {
+  outline: 2px solid white;
+  outline-offset: -4px;
+}
+
+.approval-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 24px 24px;
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.approval-content p {
+  margin: 0;
+}
+
+.approval-accepted-icon {
+  display: block;
+  width: 108px;
+  height: 108px;
+  flex: 0 0 auto;
+  fill: #49a30b;
+}
+
+.approval-accepted-card {
+  width: min(264px, 100%);
+  padding: 12px;
+  border-radius: 22px;
+  background: #dff0d5;
+}
+
+.approval-portrait {
+  display: grid;
+  place-items: center;
+  width: 168px;
+  max-width: 100%;
+  height: 188px;
+  margin-inline: auto;
+  padding: 0;
+  border-radius: 4px;
+  background: white;
+  box-shadow: 0 2px 3px #0003;
+}
+
+.approval-portrait svg {
+  display: block;
+  width: 200px;
+  height: 200px;
+  max-width: none;
+}
+
+.approval-portrait svg path {
+  transform-box: view-box;
+  transform-origin: center;
+  transform: scaleX(0.88);
+}
+
+.approval-status {
+  padding: 12px 0 0;
+  color: #111;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.approval-refresh {
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 44px;
+  margin-top: 42px;
+  padding: 10px;
+  border-radius: 999px;
+  background: rgb(14, 103, 52);
+  color: white;
+  box-shadow: 0 2px 4px #0004;
+}
+
+.approval-refresh svg {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
+}
+
+.approval-refresh:hover {
+  background: #0a542a;
+}
+
+.approval-refresh:focus-visible {
+  outline: 3px solid #49a30b;
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+body.sidebar-open {
+  overflow: hidden;
+}
+
+.main-sidebar {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(340px, 90vw);
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: white;
+  color: #333;
+  overflow-y: auto;
+  box-shadow: -5px 0 20px #0003;
+}
+
+.main-sidebar::backdrop {
+  background: #0006;
+}
+
+.sidebar-header {
+  position: relative;
+  padding: 24px 38px 18px;
+  background: rgb(14, 103, 52);
+  color: white;
+  text-align: center;
+}
+
+.sidebar-header h2 {
+  margin: 0 0 10px;
+  font-size: 19px;
+  line-height: 1.5;
+}
+
+.sidebar-header p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.sidebar-close {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 36px;
+  height: 36px;
+  font-size: 28px;
+}
+
+.sidebar-student {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px;
+  border-bottom: 1px solid #ddd;
+}
+
+.sidebar-student svg {
+  width: 76px;
+  height: 84px;
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.sidebar-student > div {
+  flex: 1;
+}
+
+.sidebar-student p {
+  margin: 6px 0;
+  padding: 8px;
+  text-align: center;
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 22px;
+  text-align: right;
+  font-size: 16px;
+}
+
+.sidebar-item[aria-disabled="true"] {
+  cursor: default;
+}
+
+.sidebar-item:hover {
+  background: #f3f3f3;
+}
+
+.sidebar-item[aria-current="page"] {
+  background: #e5f1e8;
+  color: #0e6734;
+  font-weight: 700;
+}
+
+.sidebar-badge {
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: #0e6734;
+  color: white;
+  font-size: 12px;
+}
+
+#sidebar-navigation details summary {
+  padding: 14px 22px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#sidebar-navigation details .sidebar-item {
+  padding-right: 40px;
+  background: #fafafa;
+  font-size: 14px;
+}
+
+.sidebar-footer {
+  padding: 20px 12px;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+}
+
+.sidebar-footer p {
+  margin: 6px 0;
+}
+
+@media (max-width: 600px) {
+  .topbar {
+    height: 92px;
+    padding: 0 20px;
+  }
+
+  .top-actions {
+    gap: 15px;
+    font-size: 28px;
+  }
+
+  .menu-button {
+    width: 35px;
+    gap: 5px;
+  }
+
+  .menu-button span {
+    height: 4px;
+  }
+
+  .topbar p {
+    font-size: 25px;
+  }
+
+  .icon-button {
+    width: 35px;
+    height: 35px;
+  }
+
+  .bell {
+    width: 32px;
+    height: 36px;
+  }
+
+  .back {
+    font-size: 46px;
+  }
+
+  main {
+    padding: 38px 16px;
+  }
+
+  .panel {
+    min-height: 0;
+    padding: 14px;
+  }
+
+  .controls {
+    padding: 17px 12px;
+  }
+
+  .switch {
+    width: 64px;
+    height: 31px;
+  }
+
+  .switch i {
+    width: 37px;
+    height: 37px;
+    top: -3px;
+  }
+
+  .switch-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .release-card {
+    margin: 0 8px;
+  }
+
+  .release-row {
+    min-height: 105px;
+    padding: 8px;
+    gap: 4px;
+    font-size: clamp(16px, 4vw, 24px);
+  }
+
+  .release-expand span {
+  font-size: 30px;
+  transform: translateY(-2px);
+}
+
+.release-expand[aria-expanded="false"] span {
+  font-size: 38px;
+  transform: translateY(-2px);
+}
+
+  .release-details {
+  padding: 0 16px 18px;
+  font-size: clamp(18px, 4vw, 26px);
+}
+
+  .release-row .more {
+    width: 40px;
+  }
+
+  .status {
+    min-height: 80px;
+    padding: 12px 10px;
+  }
+}
