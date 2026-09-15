@@ -321,6 +321,11 @@
       pointer-events: none;
     }
 
+    /* Larger down arrow on computers. */
+    .release-expand[aria-expanded="false"] span {
+      font-size: 48px;
+    }
+
     .release-expand:hover,
     .release-expand:focus-visible {
       background: #0000000a;
@@ -830,6 +835,11 @@
 
       .release-expand span {
         font-size: 30px;
+      }
+
+      /* Larger down arrow on mobile. */
+      .release-expand[aria-expanded="false"] span {
+        font-size: 38px;
       }
 
       .release-details {
