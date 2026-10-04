@@ -981,7 +981,7 @@
   </style>
 
   <style>
-    /* Phone layout overrides */
+    /* Phone layout */
     @media (max-width: 600px) {
       body {
         min-height: 100dvh;
@@ -1253,6 +1253,66 @@
       body .approval-refresh svg {
         width: 20px;
         height: 20px;
+      }
+    }
+  </style>
+
+  <style>
+    /* Latest phone-only changes */
+    @media (max-width: 600px) {
+      /* Extend only the background, preserving button positions. */
+      body .topbar {
+        position: relative;
+        isolation: isolate;
+      }
+
+      body .topbar::before {
+        content: "";
+        position: absolute;
+        inset: -100vh 0 0;
+        z-index: -1;
+        background: inherit;
+        pointer-events: none;
+      }
+
+      /* Shorter approval dialog */
+      body .approval-dialog {
+        height: auto;
+        max-height: calc(100dvh - 24px);
+      }
+
+      body .approval-content {
+        gap: 5px;
+        padding: 10px 14px;
+      }
+
+      body .approval-accepted-icon {
+        width: 44px;
+        height: 44px;
+      }
+
+      body .approval-accepted-card {
+        padding: 7px 10px;
+      }
+
+      body .approval-portrait {
+        width: 88px;
+        height: 92px;
+      }
+
+      body .approval-portrait svg {
+        width: 88px;
+        height: 88px;
+      }
+
+      body .approval-status {
+        padding-top: 5px;
+      }
+
+      body .approval-refresh {
+        margin-top: 5px;
+        height: 30px;
+        padding: 5px;
       }
     }
   </style>
@@ -1626,8 +1686,13 @@
         const now = new Date();
         const rounded = new Date(now);
 
+        // Phone: round down every 15 minutes.
+        // Larger screens: retain the original 30-minute interval.
+        const intervalMinutes =
+          window.matchMedia('(max-width: 600px)').matches ? 15 : 30;
+
         rounded.setMinutes(
-          Math.floor(now.getMinutes() / 30) * 30,
+          Math.floor(now.getMinutes() / intervalMinutes) * intervalMinutes,
           0,
           0
         );
