@@ -1181,12 +1181,18 @@
 
       body .approval-dialog {
   position: fixed;
-  inset: 0;
+  inset: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
   width: min(300px, calc(100vw - 32px));
-  height: auto;
-  min-height: 380px;
+  height: fit-content;
+  min-height: 0;
   max-height: none;
-  margin: auto;
+  margin: 0;
+  padding: 0;
+
   overflow: visible;
   border-radius: 0;
   box-shadow: 0 16px 48px #0005;
