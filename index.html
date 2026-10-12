@@ -1170,11 +1170,17 @@
       }
 
       body .approval-dialog {
+        position: fixed;
+        inset: 0;
         width: min(300px, calc(100vw - 32px));
-        height: auto;
-        max-height: calc(100dvh - 32px);
+        height: fit-content;
+        min-height: 0;
+        max-height: 80vh;
+        max-height: 80dvh;
         margin: auto;
-        border-radius: 6px;
+        overflow: auto;
+        border-radius: 12px;
+        box-shadow: 0 16px 48px #0005;
       }
 
       body .approval-header {
@@ -1201,8 +1207,8 @@
       }
 
       body .approval-content {
-        gap: 8px;
-        padding: 14px;
+        gap: 6px;
+        padding: 10px 14px 12px;
         font-size: 13px;
         line-height: 1.5;
         direction: rtl;
@@ -1215,29 +1221,29 @@
       }
 
       body .approval-accepted-icon {
-        width: 60px;
-        height: 60px;
+        width: 44px;
+        height: 44px;
       }
 
       body .approval-accepted-card {
         width: 170px;
-        padding: 10px;
+        padding: 8px 10px;
         border-radius: 14px;
       }
 
       body .approval-portrait {
-        width: 105px;
-        height: 118px;
+        width: 88px;
+        height: 96px;
       }
 
       body .approval-portrait svg {
-        width: 112px;
-        height: 112px;
+        width: 100%;
+        height: 100%;
         max-width: 100%;
       }
 
       body .approval-status {
-        padding-top: 8px;
+        padding-top: 6px;
         font-size: 15px;
         line-height: 1.3;
         text-align: right;
@@ -1246,7 +1252,7 @@
       body .approval-refresh {
         width: 56px;
         height: 34px;
-        margin-top: 12px;
+        margin-top: 4px;
         padding: 7px;
       }
 
@@ -1273,46 +1279,6 @@
         z-index: -1;
         background: inherit;
         pointer-events: none;
-      }
-
-      /* Shorter approval dialog */
-      body .approval-dialog {
-        height: auto;
-        max-height: calc(100dvh - 24px);
-      }
-
-      body .approval-content {
-        gap: 5px;
-        padding: 10px 14px;
-      }
-
-      body .approval-accepted-icon {
-        width: 44px;
-        height: 44px;
-      }
-
-      body .approval-accepted-card {
-        padding: 7px 10px;
-      }
-
-      body .approval-portrait {
-        width: 88px;
-        height: 92px;
-      }
-
-      body .approval-portrait svg {
-        width: 88px;
-        height: 88px;
-      }
-
-      body .approval-status {
-        padding-top: 5px;
-      }
-
-      body .approval-refresh {
-        margin-top: 5px;
-        height: 30px;
-        padding: 5px;
       }
     }
   </style>
@@ -1733,8 +1699,6 @@
         setDetailsExpanded(releaseDetails.hidden);
       });
 
-      document.body.appendChild(menu);
-
       function positionMenu() {
         const rect = trigger.getBoundingClientRect();
         const gap = 4;
@@ -1767,7 +1731,6 @@
       }
 
       function openMenu() {
-        setDetailsExpanded(true);
         menu.hidden = false;
         trigger.setAttribute('aria-expanded', 'true');
         positionMenu();
@@ -1790,10 +1753,7 @@
       });
 
       document.addEventListener('click', (event) => {
-        if (
-          !trigger.contains(event.target) &&
-          !menu.contains(event.target)
-        ) {
+        if (!event.target.closest('.release-actions')) {
           closeMenu();
         }
       });
@@ -1815,10 +1775,7 @@
       });
 
       document.addEventListener('focusin', (event) => {
-        if (
-          !trigger.contains(event.target) &&
-          !menu.contains(event.target)
-        ) {
+        if (!event.target.closest('.release-actions')) {
           closeMenu();
         }
       });
@@ -1856,7 +1813,7 @@
         });
 
       item.addEventListener('click', () => {
-        closeMenu();
+        closeMenu(true);
         syncApprovalTimestamp();
         approvalDialog.showModal();
         document.body.classList.add('approval-open');
