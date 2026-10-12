@@ -1024,9 +1024,19 @@
         height: 26px;
       }
 
-      body .notification-count,
-      body .topbar .back {
+      body .notification-count {
         display: none !important;
+      }
+
+      body .topbar .back {
+        display: grid;
+        place-items: center;
+        width: 24px;
+        height: 32px;
+        padding: 0;
+        flex-shrink: 0;
+        font-size: 36px;
+        line-height: 1;
       }
 
       body #release-page {
@@ -1179,7 +1189,7 @@
         max-height: 80dvh;
         margin: auto;
         overflow: auto;
-        border-radius: 12px;
+        border-radius: 0;
         box-shadow: 0 16px 48px #0005;
       }
 
@@ -1207,8 +1217,8 @@
       }
 
       body .approval-content {
-        gap: 6px;
-        padding: 10px 14px 12px;
+        gap: 8px;
+        padding: 18px 14px 24px;
         font-size: 13px;
         line-height: 1.5;
         direction: rtl;
