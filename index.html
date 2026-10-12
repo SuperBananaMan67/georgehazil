@@ -1179,23 +1179,12 @@
         height: 20px;
       }
 
-      body .approval-dialog {
-  position: fixed;
-  inset: auto;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
+     body .approval-dialog {
   width: min(300px, calc(100vw - 32px));
-  height: fit-content;
-  min-height: 400;
-  max-height: none;
-  margin: 0;
-  padding: 0;
-
-  overflow: visible;
-  border-radius: 0;
-  box-shadow: 0 16px 48px #0005;
+  height: 500px;
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  border-radius: 6px;
 }
 
       body .approval-header {
